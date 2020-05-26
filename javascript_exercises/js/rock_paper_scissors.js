@@ -1,9 +1,7 @@
-const prompt = require("prompt-sync")({ sigint: true });
 const winning_gestures = { paper: "rock", rock: "scissors", scissors: "paper" };
 const game_gestures = ["scissors", "paper", "rock"];
 
 function userPlay() {
-  let game_choice = "";
   do {
     game_choice = prompt("Rock, Paper, Or Scissors? ");
   } while (game_choice == "");
@@ -36,6 +34,7 @@ function playGame(playerSelection, computerSelection) {
 
 function game() {
   game_score = { player: 0, computer: 0 };
+
   for (let y = 1; y <= 5; y++) {
     user_choice = userPlay();
     game_details = playGame(user_choice, computerPlay());
@@ -47,6 +46,15 @@ function game() {
     }
     console.log(`You ${game_details.result}, ${game_details.reason}`);
     console.log(game_score);
+  }
+
+  if (game_score.player == game_score.computer) {
+    console.log("You tied!");
+  }
+  if (game_score.player > game_score.computer) {
+    console.log(`You win best of five rounds!`);
+  } else {
+    console.log(`Computer wins best of five rounds!`);
   }
 }
 
