@@ -1,0 +1,161 @@
+/* base */
+* {
+  vertical-align: baseline;
+  font-weight: inherit;
+  font-family: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  border: 0 none;
+  outline: 0;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  font-family: arial, sans-serif;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+
+/* layout */
+
+.l-page {
+  width: 100%;
+}
+
+.l-split {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.l-split-wrap {
+  flex-wrap: wrap;
+}
+
+.l-split-item {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.l-split-item-fixed {
+  flex: 0 0 100px;
+}
+
+@media screen and (min-width: 600px) {
+  .l-split-item:first-child {
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  .l-split-item:last-child {
+    display: flex;
+    justify-content: flex-end;
+    order: 10;
+  }
+}
+
+.l-center-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5em;
+}
+
+.l-header {
+  margin: 1.5em;
+}
+
+.l-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+/* Modules */
+
+.link-nav {
+  color: black;
+  text-align: center;
+  text-decoration: none;
+  vertical-align: center;
+  padding: 0.5em 0.8em 0.5em 0.8em;
+}
+
+.link-nav:hover {
+  text-decoration: underline;
+}
+
+.link-signin {
+  background: #4285f4;
+  color: white;
+  padding: 0.5em 0.8em 0.5em 0.8em;
+  text-decoration: none;
+  vertical-align: center;
+  text-align: center;
+  min-width: 4em;
+}
+
+.button-primary {
+  padding: 0.5em 1.25em 0.5em 1.25em;
+  margin: 0.5em;
+  border-radius: 0.25em;
+  border: 0;
+  border: 1px solid #f2f2f2;
+}
+
+.button-primary:hover {
+  border: 1px solid #c6c6c6;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.text-searchbar {
+  border: 1px solid #d3d3d3;
+  box-shadow: none;
+  padding: 0.75em;
+  border-radius: 2em;
+  width: 45%;
+  min-width: 275px;
+}
+
+.text-searchbar > input {
+  width: 100%;
+}
+
+.text-searchbar:hover {
+  border: 1px solid #c6c6c6;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+}
+
+.box-bottomnav {
+  background: #f2f2f2;
+  border-top: 1px solid #e4e4e4;
+  padding: 0 1em 0 1em;
+}
+
+/* typography */
+
+.link-nav {
+  font-size: 0.8em;
+}
+
+.link-bottomnav {
+  font-size: 0.9em;
+}
+
+.link-signin {
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+.button-primary {
+  font-size: 0.8em;
+}
+
+.text-searchbar {
+  font-size: 1em;
+}
