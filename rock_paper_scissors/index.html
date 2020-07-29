@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Janken! Rock, Paper, Scissors!</title>
+    <meta name="description" content="Odin Project: Rock, Paper, Scissors" />
+    <meta name="author" content="DVR" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="title">Janken! Rock, Paper, Scissors!</div>
+    <div class="board">
+      <div class="column">
+        <span class="large-label">You</span>
+        <img class="user gesture" src="images/rock.png" />
+        <span class="large-label player-score">0</span>
+      </div>
+      <div class="column"><span class="large-label">VS</span></div>
+      <div class="column">
+        <span class="large-label">Opponent</span>
+        <img class="opponent gesture" src="images/rock.png" />
+        <span class="large-label opponent-score">0</span>
+      </div>
+    </div>
+    <div class="row">
+      <span class="large-label center-line jumbotron">Choose!</span>
+    </div>
+    <div class="row">
+      <img alt="rock" class="player-choice" src="images/rock.png" />
+      <img alt="paper" class="player-choice" src="images/paper.png" />
+      <img alt="scissors" class="player-choice" src="images/scissors.png" />
+    </div>
+
+    <script type="text/javascript" src="js/rock_paper_scissors.js"></script>
+  </body>
+</html>

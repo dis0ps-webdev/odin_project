@@ -1,0 +1,69 @@
+<head>
+  <style>
+    .pinky {
+      border: 2px solid #000;
+      background-color: pink;
+      color: black;
+    }
+
+    .red {
+      color: red;
+    }
+
+    .blue {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="main_title">
+    THE TITLE OF YOUR WEBPAGE
+  </h1>
+  <h1 id="findme" hidden>Peek A boo!</h1>
+  <div id="container"></div>
+  <div id="control">
+    <button id="start">Click to Start!</button>
+  </div>
+  <script>
+    function addContent() {
+      const target = document.getElementById("container");
+
+      while (target.firstChild) {
+        target.removeChild(target.firstChild);
+      }
+
+      paraElement = document.createElement("p");
+      paraElement.textContent = "Hi, I'm red!";
+      paraElement.classList.add("red");
+
+      h3Element = document.createElement("h3");
+      h3Element.textContent = "Hey, I'm a blue h3!";
+      h3Element.classList.add("blue");
+
+      divElement = document.createElement("div");
+
+      divH1 = document.createElement("h1");
+      divH1.textContent = "I'm a div";
+
+      divP = document.createElement("p");
+      divP.textContent = "ME TOO!";
+
+      divElement.appendChild(divH1);
+      divElement.appendChild(divP);
+      divElement.classList.add("pinky");
+
+      target.appendChild(paraElement);
+      target.appendChild(h3Element);
+      target.appendChild(divElement);
+    }
+
+    function toggle_message() {
+      let toggle = document.getElementById("findme").hidden;
+      document.getElementById("findme").hidden = !toggle;
+    }
+
+    document.getElementById("start").addEventListener("click", addContent);
+    document.getElementById("main_title").addEventListener("mouseenter", toggle_message);
+    document.getElementById("main_title").addEventListener("mouseleave", toggle_message);
+  </script>
+</body>
