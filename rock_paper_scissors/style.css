@@ -1,0 +1,53 @@
+body {
+  background-color: #cce83a;
+  font-family: Futura, Trebuchet MS, Arial, sans-serif;
+}
+
+.title {
+  font-size: 3em;
+  text-align: center;
+}
+
+.large-label {
+  font-size: 2em;
+}
+
+.small-label {
+  font-size: 1em;
+}
+
+.center-line {
+  background: black;
+  color: white;
+  width: 75%;
+  text-align: center;
+  border-radius: 30px;
+}
+
+.board {
+  display: flex;
+  justify-content: center;
+  margin: 3em;
+}
+.column {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+}
+
+.player-choice {
+  opacity: 0.5;
+}
+
+.player-choice:hover {
+  opacity: 1;
+}
