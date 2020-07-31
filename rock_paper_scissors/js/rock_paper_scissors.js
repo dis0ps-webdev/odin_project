@@ -8,7 +8,6 @@ const opponentGesture = document.querySelector(".opponent");
 const winning_gestures = { paper: "rock", rock: "scissors", scissors: "paper" };
 const game_gestures = ["scissors", "paper", "rock"];
 const imageLocation = "images/";
-
 let gameScore = { player: 0, computer: 0 };
 
 function computerPlay() {
@@ -49,7 +48,9 @@ function playGame(e) {
     opponentScore.textContent = gameScore.computer;
   }
 
-  jumbotron.innerText = `You ${result}!`;
+  jumbotron.innerText = `You ${result} the round!`;
+
+
 }
 
 gestureChoices.forEach((gesture) => {
