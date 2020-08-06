@@ -62,6 +62,9 @@ function executeOperation() {
 
 function updateDisplay(numericValue) {
   let stringValue = numericValue.toString();
+  if (stringValue.indexOf(".") > 0) {
+    stringValue = parseFloat(numericValue).toFixed(4);
+  }
   numericDisplay.value = stringValue;
   //console.log(operatorStack);
   //console.log(operandStack);
