@@ -7,7 +7,6 @@ Assignments and projects for each course of the full stack development track tar
 ## Web Development 101
 
 - [Google Doppleganger \(Main Page\)](https://dis0ps.github.io/odin_project/web_development_101/google_doppleganger/google.html)
-- [Google Doppleganger \(Results\)](https://dis0ps.github.io/odin_project/web_development_101/google_doppleganger/google_results.html)
 - [Rock, Paper Scissors](https://dis0ps.github.io/odin_project/web_development_101/rock_paper_scissors/)
 - [Etch-a-Sketch](https://dis0ps.github.io/odin_project/web_development_101/etch-a-sketch/)
 - [Calculator](https://dis0ps.github.io/odin_project/web_development_101/calculator/)
