@@ -1,0 +1,83 @@
+body {
+  font-family: futura;
+  background: rgb(124, 124, 124);
+  margin: 0px;
+  padding: 0px;
+}
+
+.logo {
+  background-image: url("../images/library.jpg");
+  font-size: 2em;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 200px;
+  color: white;
+  font-weight: bolder;
+}
+
+.library {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 600px) {
+  .book {
+    flex: 100%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .book {
+    flex: 25%;
+  }
+}
+
+.book {
+  display: inline-block;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: 3px 3px 2px 1px rgba(0, 0, 0, 0.4);
+  margin: 15px;
+  background: rgb(233, 233, 233);
+}
+
+.book > header {
+  background-color: #333;
+  color: #ffff;
+  font-weight: bolder;
+  padding: 10px;
+}
+
+.book section {
+  display: flex;
+  min-height: 200px;
+  font-size: 0.9em;
+}
+
+.book section span:first-child {
+  flex: 80%;
+  width: 150px;
+  padding: 10px;
+}
+
+.book section span:last-child {
+  flex: 20%;
+  text-align: right;
+}
+
+.book footer {
+  display: flex;
+  font-size: 0.8em;
+}
+
+.book footer span {
+  flex: 20%;
+  padding: 10px;
+}
+
+.book footer span:last-child {
+  flex: 80%;
+  text-align: right;
+}
