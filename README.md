@@ -2,7 +2,7 @@
 
 My development work following the Odin Project curriculum (https://www.theodinproject.com/).
 
-Assignments and projects for each course of the full stack development track targeting Javascript is contained in this repo. Javascript has become much more robust since my first foray with it years ago, supporting classes, better variable scoping, and cleaner syntax. This work is an effort to understand web development better in order to better secure it.
+Assignments and projects for each course of the full stack development track targeting Javascript are contained in this repo. Javascript has become much more robust since my first foray with it years ago.  It now supports true OOP, better variable scoping, and cleaner syntax. This work is an effort to understand modern web development better in order develop a stronger mental model of network and application flows, and ultimately updated my dated application security knowledge.
 
 ## Web Development 101
 
