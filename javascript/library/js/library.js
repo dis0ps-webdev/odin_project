@@ -1,4 +1,5 @@
 const libraryDiv = document.querySelector(".library");
+let bookShelf = [];
 
 class Book {
   constructor(title, author, pages, read = false) {
@@ -37,7 +38,12 @@ class Book {
   }
 }
 
-let bookShelf = [];
+function renderAll(bookArray) {
+  libraryDiv.innerText = "";
+  bookArray.forEach((currentBook) => {
+    libraryDiv.appendChild(currentBook.render("book"));
+  });
+}
 
 bookShelf.push(
   new Book(
@@ -57,9 +63,11 @@ bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
 bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
 bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
 
-bookShelf.forEach((currentBook) => {
-  libraryDiv.appendChild(currentBook.render("book"));
+let currentView = bookShelf.filter((book) => {
+  return book.read == true;
 });
+
+renderAll(bookShelf);
 
 libraryDiv.addEventListener("click", (e) => {
   //Identify click event source and book
@@ -72,11 +80,12 @@ libraryDiv.addEventListener("click", (e) => {
 
   if (clickedId == "delete") {
     //Remove affected book from array and DOM
-    console.log(bookShelf[bookIndex]);
+    console.log(bookShelf.indexOf(bookShelf[bookIndex]));
     bookShelf.splice(bookIndex, 1);
     libraryDiv.removeChild(clickedBook);
   }
 
+  //Replace affected book from array and DOM
   if (clickedId == "bookmark") {
     bookShelf[bookIndex].read = !bookShelf[bookIndex].read;
     libraryDiv.replaceChild(bookShelf[bookIndex].render("book"), clickedBook);
