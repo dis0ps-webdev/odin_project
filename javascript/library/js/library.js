@@ -1,5 +1,4 @@
 const libraryDiv = document.querySelector(".library");
-let bookShelf = [];
 
 class Book {
   constructor(title, author, pages, read = false) {
@@ -38,56 +37,65 @@ class Book {
   }
 }
 
-function renderAll(bookArray) {
-  libraryDiv.innerText = "";
-  bookArray.forEach((currentBook) => {
-    libraryDiv.appendChild(currentBook.render("book"));
-  });
+class Library {
+  constructor(targetDiv) {
+    this.bookShelf = [];
+    this.currentView = [];
+    this.targetDiv = targetDiv;
+    this.addHandling(this.targetDiv);
+  }
+
+  addHandling(targetDiv) {
+    targetDiv.addEventListener("click", (e) => {
+      //Identify click event source and book
+      let clickedBook = e.target.closest(".book");
+      let clickedAction = e.target.getAttribute("id");
+
+      //Match book clicked to the array
+      let libraryArray = Array.from(targetDiv.querySelectorAll(".book"));
+      let bookIndex = libraryArray.indexOf(clickedBook);
+
+      if (clickedAction == "delete") {
+        //Remove affected book from array and DOM
+        this.bookShelf.splice(bookIndex, 1);
+        targetDiv.removeChild(clickedBook);
+      }
+
+      //Replace affected book from array and DOM
+      if (clickedAction == "bookmark") {
+        this.bookShelf[bookIndex].read = !this.bookShelf[bookIndex].read;
+        targetDiv.replaceChild(
+          this.bookShelf[bookIndex].render("book"),
+          clickedBook
+        );
+      }
+    });
+  }
+
+  addBook(newBook) {
+    this.bookShelf.push(newBook);
+  }
+
+  renderAll(cssClass) {
+    this.targetDiv.innerText = "";
+    this.bookShelf.forEach((currentBook) => {
+      this.targetDiv.appendChild(currentBook.render(cssClass));
+      this.targetDiv.lastChild.dataset.array-index=
+    });
+  }
 }
 
-bookShelf.push(
-  new Book(
-    "The Dip",
-    "Seth Godin, Elon Musk, Steve Jobs, Seth Godin, Elon Musk, Steve Jobs, Mickey Mouse",
-    70
-  )
-);
-bookShelf.push(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
-bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
-bookShelf.push(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
-bookShelf.push(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
-bookShelf.push(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
-bookShelf.push(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
-bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
-bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
-bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
-bookShelf.push(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
+let myLibrary = new Library(libraryDiv);
 
-let currentView = bookShelf.filter((book) => {
-  return book.read == true;
-});
+myLibrary.addBook(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
+myLibrary.addBook(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, false));
+myLibrary.addBook(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
+myLibrary.addBook(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
+myLibrary.addBook(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
+myLibrary.addBook(new Book("Cryptonomicon", "Neal Stephenson", 918, false));
+myLibrary.addBook(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
+myLibrary.addBook(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
+myLibrary.addBook(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, false));
+myLibrary.addBook(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, true));
 
-renderAll(bookShelf);
-
-libraryDiv.addEventListener("click", (e) => {
-  //Identify click event source and book
-  let clickedBook = e.target.closest(".book");
-  let clickedId = e.target.getAttribute("id");
-
-  //Match book clicked to the array
-  let libraryArray = Array.from(libraryDiv.querySelectorAll(".book"));
-  let bookIndex = libraryArray.indexOf(clickedBook);
-
-  if (clickedId == "delete") {
-    //Remove affected book from array and DOM
-    console.log(bookShelf.indexOf(bookShelf[bookIndex]));
-    bookShelf.splice(bookIndex, 1);
-    libraryDiv.removeChild(clickedBook);
-  }
-
-  //Replace affected book from array and DOM
-  if (clickedId == "bookmark") {
-    bookShelf[bookIndex].read = !bookShelf[bookIndex].read;
-    libraryDiv.replaceChild(bookShelf[bookIndex].render("book"), clickedBook);
-  }
-});
+myLibrary.renderAll("book");
