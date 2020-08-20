@@ -1,9 +1,9 @@
 const libraryDiv = document.querySelector(".library");
 
-//TODO: firebase login via google or other external auth
 //TODO: Toggle flip of currentView and render accordingly
-//TODO: firebase storage by JSON.stringify of book objects
 //TODO: Modal dialog for adding new book using book constructor
+//TODO: firebase login via google or other external auth
+//TODO: firebase storage by JSON.stringify of book objects
 
 class Book {
   constructor(title, author, pages, read = false) {

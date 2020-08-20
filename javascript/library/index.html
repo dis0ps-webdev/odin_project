@@ -5,8 +5,9 @@
     <title>Library</title>
     <meta name="description" content="Odin Project Exercise - Library" />
     <meta name="author" content="DVR" />
-    <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/modal.css" />
   </head>
 
   <body>
@@ -28,6 +29,28 @@
     </div>
     <div class="container">
       <div class="library"></div>
+    </div>
+
+    <div class="modal add-book">
+      <div class="modal-content">
+        <div class="modal-title">
+          Add A Book
+        </div>
+
+        <div class="modal-form">
+          <input placeholder="Title" name="book-title" type="text" />
+        </div>
+        <div class="modal-form">
+          <input placeholder="Author" name="book-author" type="text" />
+        </div>
+        <div class="modal-form">
+          <input placeholder="Number of Pages" name="book-pages" type="text" />
+        </div>
+        <div class="modal-form">
+          <button id="cancel">Cancel</button>
+          <button id="submit" type="submit">Submit</button>
+        </div>
+      </div>
     </div>
     <script type="text/javascript" src="js/nav.js"></script>
     <script type="text/javascript" src="js/library.js"></script>
