@@ -1,7 +1,5 @@
 const navElement = document.querySelector("nav#main");
 const spanCurrentFilter = document.querySelector("#current-filter");
-const addBookButton = document.querySelector("#add-book");
-const addBookModal = document.querySelector(".modal.add-book");
 const navOriginalPosition = navElement.offsetTop;
 
 const filterOptions = ["all", "read", "unread"];
@@ -22,6 +20,8 @@ function updateFilterOption() {
   } else {
     spanCurrentFilter.classList.remove("red");
   }
+  myLibrary.currentView = filterOptions[currentFilterIndex];
+  myLibrary.renderView();
 }
 
 function handleClick(e) {
@@ -37,13 +37,7 @@ function handleClick(e) {
   }
 }
 
-function openAddBookModal() {
-  addBookModal.style.display = "block";
-}
-
 window.addEventListener("scroll", makeSticky);
 navElement.addEventListener("click", handleClick);
-
-addBookButton.addEventListener("click", openAddBookModal);
 
 updateFilterOption();
