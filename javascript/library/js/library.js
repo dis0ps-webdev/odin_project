@@ -68,6 +68,7 @@ class Library {
     targetDiv.addEventListener("click", (e) => {
       //Identify click event source and book
       let clickedBook = e.target.closest(".book");
+      if (clickedBook != null) {
       let bookId = clickedBook.dataset.id;
 
       let clickedAction = e.target.getAttribute("id");
@@ -79,7 +80,7 @@ class Library {
       if (clickedAction == "bookmark") {
         this.toggleBookmark(bookId);
       }
-    });
+    }});
   }
 
   addBook(newBook) {
@@ -94,7 +95,6 @@ class Library {
 
   toggleBookmark(bookId) {
     let bookIndex = this.bookShelf.findIndex((book) => book.id == bookId);
-    console.log(bookIndex);
     if (bookIndex != -1) {
       this.bookShelf[bookIndex].read = !this.bookShelf[bookIndex].read;
       this.renderView();
