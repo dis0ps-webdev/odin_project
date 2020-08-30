@@ -10,3 +10,7 @@ Assignments and projects for each course of the full stack development track tar
 - [Rock, Paper Scissors](https://dis0ps.github.io/odin_project/web_development_101/rock_paper_scissors/)
 - [Etch-a-Sketch](https://dis0ps.github.io/odin_project/web_development_101/etch-a-sketch/)
 - [Calculator](https://dis0ps.github.io/odin_project/web_development_101/calculator/)
+
+## Javascript
+
+- [Personal Library Application](https://dis0ps.github.io/odin_project/javascript/library/index.html)
