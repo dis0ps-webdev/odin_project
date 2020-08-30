@@ -62,6 +62,22 @@ class Library {
     this.bookClass = bookClass;
     this.currentView = "all";
     this.addHandling(this.targetDiv);
+    this.loadFromLocalStorage();
+  }
+
+  saveToLocalStorage() {
+    localStorage.setItem("bookShelf", JSON.stringify(this.bookShelf));
+  }
+
+  loadFromLocalStorage() {
+    if (localStorage.hasOwnProperty("bookShelf")) {
+      let savedBooks = Array.from(
+        JSON.parse(localStorage.getItem("bookShelf"))
+      );
+      savedBooks.forEach((book) => {
+        this.addBook(new Book(book.title, book.author, book.pages, book.read));
+      });
+    }
   }
 
   addHandling(targetDiv) {
@@ -69,27 +85,30 @@ class Library {
       //Identify click event source and book
       let clickedBook = e.target.closest(".book");
       if (clickedBook != null) {
-      let bookId = clickedBook.dataset.id;
+        let bookId = clickedBook.dataset.id;
 
-      let clickedAction = e.target.getAttribute("id");
+        let clickedAction = e.target.getAttribute("id");
 
-      if (clickedAction == "delete") {
-        this.removeBook(bookId);
+        if (clickedAction == "delete") {
+          this.removeBook(bookId);
+        }
+
+        if (clickedAction == "bookmark") {
+          this.toggleBookmark(bookId);
+        }
       }
-
-      if (clickedAction == "bookmark") {
-        this.toggleBookmark(bookId);
-      }
-    }});
+    });
   }
 
   addBook(newBook) {
     this.bookShelf.push(newBook);
+    this.saveToLocalStorage();
   }
 
   removeBook(bookId) {
     let filteredBooks = this.bookShelf.filter((book) => book.id != bookId);
     this.bookShelf = filteredBooks;
+    this.saveToLocalStorage();
     this.renderView();
   }
 
@@ -97,6 +116,7 @@ class Library {
     let bookIndex = this.bookShelf.findIndex((book) => book.id == bookId);
     if (bookIndex != -1) {
       this.bookShelf[bookIndex].read = !this.bookShelf[bookIndex].read;
+      this.saveToLocalStorage();
       this.renderView();
     }
   }
@@ -117,18 +137,14 @@ class Library {
         break;
     }
     let s = (book) => (book = true);
-
-    this.bookShelf.filter(viewFunction).forEach((currentBook) => {
-      this.targetDiv.appendChild(currentBook.render(this.bookClass));
-    });
+    if (this.bookShelf.length == 0) {
+      this.targetDiv.innerText = "Empty";
+    } else {
+      this.bookShelf.filter(viewFunction).forEach((currentBook) => {
+        this.targetDiv.appendChild(currentBook.render(this.bookClass));
+      });
+    }
   }
 }
 
 let myLibrary = new Library(libraryDiv, "book");
-
-myLibrary.addBook(new Book("Cryptonomicon", "Neal Stephenson", 918, true));
-myLibrary.addBook(new Book("The Cuckoo's Egg", "Clifford Stoll", 326, false));
-myLibrary.addBook(new Book("The Dip", "Some Guy", 70, true));
-
-myLibrary.currentView = "all";
-myLibrary.renderView();
