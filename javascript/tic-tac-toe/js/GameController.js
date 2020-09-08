@@ -7,8 +7,10 @@ class GameController {
     this.secondPlayer = secondPlayer;
 
     this.currentPlayer = this.firstPlayer;
+
     this.model.bindGameboardUpdated(this.onGameboardUpdated.bind(this));
     this.view.bindClickCell(this.handleCellClick.bind(this));
+
     this.view.render(this.model);
   }
 
