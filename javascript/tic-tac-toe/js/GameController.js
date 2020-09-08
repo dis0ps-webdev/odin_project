@@ -13,22 +13,31 @@ class GameController {
   }
 
   onGameboardUpdated() {
+    this._checkEndGame();
+    this._swapPlayers();
+
+    this.view.render(this.model);
+  }
+
+  _checkEndGame() {
     if (this.model.hasWinner()) {
       console.log("Winner!");
       console.log(this.currentPlayer.name);
+      this.model.resetState();
+    } else {
+      if (this.model.isFull()) {
+        console.log("Tie!");
+        this.model.resetState();
+      }
     }
+  }
 
-    if (this.model.isFull()) {
-      console.log("Full!");
-    }
-
+  _swapPlayers() {
     if (this.currentPlayer == this.firstPlayer) {
       this.currentPlayer = this.secondPlayer;
     } else {
       this.currentPlayer = this.firstPlayer;
     }
-
-    this.view.render(this.model);
   }
 
   handleCellClick(clickIndex) {
