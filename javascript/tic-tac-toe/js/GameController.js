@@ -11,12 +11,14 @@ class GameController {
     this.model.bindGameboardUpdated(this.onGameboardUpdated.bind(this));
     this.view.bindClickCell(this.handleCellClick.bind(this));
 
+    this._checkNonHuman();
     this.view.render(this.model);
   }
 
   onGameboardUpdated() {
     this._checkEndGame();
     this._swapPlayers();
+    this._checkNonHuman();
 
     this.view.render(this.model);
   }
@@ -40,6 +42,24 @@ class GameController {
     } else {
       this.currentPlayer = this.firstPlayer;
     }
+  }
+
+  _checkNonHuman() {
+    if (!this.currentPlayer.ishuman) {
+      setTimeout(this._decideMove.bind(this), 500);
+    }
+  }
+
+  _decideMove() {
+    let randomMove = 0;
+    let validMove = true;
+    do {
+      let potentialMove = Math.floor(Math.random() * 9);
+      validMove = this.model.placeMark(
+        potentialMove,
+        this.currentPlayer.getMarker()
+      );
+    } while (!validMove);
   }
 
   handleCellClick(clickIndex) {
