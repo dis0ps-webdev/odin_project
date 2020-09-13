@@ -2,6 +2,7 @@ class Gameboard {
   constructor() {
     this.resetState();
     this.gamePieces = [" ", "X", "O"];
+    this.winner = undefined;
   }
 
   bindGameboardUpdated(callback) {
@@ -12,7 +13,7 @@ class Gameboard {
     this.currentPlayer = player;
   }
 
-  isFull() {
+  isTie() {
     let emptyIndex = this.gamePositions.findIndex((cell) => cell == 0);
     if (emptyIndex == -1) {
       return true;
@@ -41,6 +42,10 @@ class Gameboard {
     return false;
   }
 
+  getWinner() {
+    return this.winner;
+  }
+
   _isWinningTriplet(indexes) {
     let triplet = [];
     let winningTriplet = false;
@@ -58,8 +63,13 @@ class Gameboard {
       let tripletSum = triplet.reduce(
         (value, accumulator) => (accumulator += value)
       );
-      if (tripletSum == 3 || tripletSum == 6) {
+      if (tripletSum == 3) {
         winningTriplet = true;
+        this.winner = "X";
+      }
+      if (tripletSum == 6) {
+        winningTriplet = true;
+        this.winner = "O";
       }
     }
     return winningTriplet;
@@ -69,14 +79,27 @@ class Gameboard {
     this.gamePositions = [0, 0, 0, 0, 0, 0, 0, 0, 0];
   }
 
+  setState(state) {
+    this.gamePositions = Array.from(state);
+  }
+
   getCurrentState() {
     return this.gamePositions;
   }
 
-  placeMark(position, marker) {
+  getNumOpenPositions() {
+    let openPositions = this.gamePositions.filter((position) => {
+      return position == 0;
+    });
+    return openPositions.length;
+  }
+
+  placeMark(position, marker, simulate = false) {
     if (this.gamePositions[position] == 0) {
       this.gamePositions[position] = this.gamePieces.indexOf(marker);
-      this.onGameboardUpdated(this);
+      if (!simulate) {
+        this.onGameboardUpdated(this);
+      }
       return true;
     } else {
       return false;
