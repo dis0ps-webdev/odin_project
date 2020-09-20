@@ -8,10 +8,10 @@ body {
 .logo {
   font-size: 2em;
   text-align: center;
+  background: #444;
   vertical-align: middle;
   line-height: 100px;
   color: white;
-  background: black;
   font-weight: bolder;
 }
 
@@ -23,7 +23,7 @@ body {
 
 .gameboard {
   flex: 0 0 300px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
@@ -32,16 +32,15 @@ body {
 .scoreboard {
   flex: 0 0 300px;
   padding-top: 10px;
-  display: flex;
+  display: none;
   justify-content: center;
   align-items: center;
 }
 
 .score {
   font-size: 1.5em;
-  flex: 0 0 100px; 
+  flex: 0 0 100px;
   text-align: center;
-
 }
 
 .cell {

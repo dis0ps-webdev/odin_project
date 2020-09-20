@@ -6,6 +6,7 @@
     <meta name="description" content="Odin Project Exercise - Tic Tac Toe" />
     <meta name="author" content="DVR" />
     <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/form.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
@@ -18,6 +19,38 @@
           <li><a id="restart-game" href="#">Restart Game</a></li>
         </ul>
       </nav>
+      <div class="container">
+        <div class="new-game-form">
+          <div class="form-title">New Game</div>
+          <div class="form-content">
+            <select name="game-type" id="game-type">
+              <option value="human-v-human">Human vs Human</option>
+              <option value="human-v-ai" selected>Human vs AI</option>
+              <option value="ai-v-ai">AI vs AI</option>
+            </select>
+          </div>
+          <div class="form-content">
+            <input
+              type="text"
+              name="player-one-name"
+              id="player-one-name"
+              placeholder="Player One"
+            />
+          </div>
+          <div class="form-content">
+            <input
+              type="text"
+              name="player-two-name"
+              id="player-two-name"
+              placeholder="Player Two"
+            />
+          </div>
+          <div class="form-content">
+            <button id="game-start" type="submit">Start Game!</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div class="scoreboard">
       <div class="score">Player 1</div>
       <div class="score">Tie</div>
