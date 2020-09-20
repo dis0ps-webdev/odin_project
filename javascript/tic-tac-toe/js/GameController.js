@@ -4,20 +4,23 @@
 
 import { Gameboard } from "./Gameboard.js";
 class GameController {
-  constructor(gameboard, view, firstPlayer, secondPlayer) {
+  constructor(gameboard, view) {
     this.model = gameboard;
     this.view = view;
 
+    this.model.bindGameboardUpdated(this.onGameboardUpdated.bind(this));
+    this.view.bindClickCell(this.handleCellClick.bind(this));
+
+    this.view.render(this.model);
+  }
+
+  startNewGame(firstPlayer, secondPlayer) {
     this.firstPlayer = firstPlayer;
     this.secondPlayer = secondPlayer;
 
     this.currentPlayer = this.firstPlayer;
 
-    this.model.bindGameboardUpdated(this.onGameboardUpdated.bind(this));
-    this.view.bindClickCell(this.handleCellClick.bind(this));
-
-    this._checkNonHuman();
-    this.view.render(this.model);
+    this.resetGame(50);
   }
 
   onGameboardUpdated() {

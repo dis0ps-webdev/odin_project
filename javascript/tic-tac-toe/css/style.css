@@ -18,12 +18,11 @@ body {
 .container {
   display: flex;
   justify-content: center;
-  padding: 50px;
 }
 
 .gameboard {
   flex: 0 0 300px;
-  display: none;
+  display: flex;
   justify-content: center;
   align-content: center;
   flex-wrap: wrap;
@@ -32,9 +31,13 @@ body {
 .scoreboard {
   flex: 0 0 300px;
   padding-top: 10px;
-  display: none;
+  display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.hidden {
+  display: none;
 }
 
 .score {
