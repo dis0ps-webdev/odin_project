@@ -3,17 +3,33 @@
   <head>
     <meta charset="utf-8" />
     <title>Tic Tac Toe</title>
-    <meta name="description" content="Odin Project Eercise - Tic Tac Toe" />
+    <meta name="description" content="Odin Project Exercise - Tic Tac Toe" />
     <meta name="author" content="DVR" />
+    <link rel="stylesheet" href="css/nav.css" />
     <link rel="stylesheet" href="css/style.css" />
   </head>
 
   <body>
     <div class="logo">Tic Tac Toe</div>
+    <div class="nav-wrapper">
+      <nav id="main">
+        <ul>
+          <li><a id="new-game" href="#">New Game</a></li>
+          <li><a id="restart-game" href="#">Restart Game</a></li>
+        </ul>
+      </nav>
+    <div class="scoreboard">
+      <div class="score">Player 1</div>
+      <div class="score">Tie</div>
+      <div class="score">Player 2</div>
+    </div>
+    <div class="scoreboard">
+      <div id="p1" class="score">0</div>
+      <div id="tie" class="score">0</div>
+      <div id="p2" class="score">0</div>
+    </div>
     <div class="container">
-      <div class="scoreboard">Player 1</div>
       <div class="gameboard"></div>
-      <div class="scoreboard">Player 2</div>
     </div>
     <script type="module" src="js/App.js"></script>
   </body>
