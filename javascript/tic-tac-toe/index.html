@@ -19,53 +19,44 @@
           <li><a id="restart-game" href="#">Restart Game</a></li>
         </ul>
       </nav>
-      <div class="container">
-        <div class="new-game-form">
-          <div class="form-title">New Game</div>
-          <div class="form-content">
-            <select name="game-type" id="game-type">
-              <option value="human-v-human">Human vs Human</option>
-              <option value="human-v-ai" selected>Human vs AI</option>
-              <option value="ai-v-ai">AI vs AI</option>
-            </select>
-          </div>
-          <div class="form-content">
-            <input
-              type="text"
-              name="player-one-name"
-              id="player-one-name"
-              placeholder="PlayerOne"
-              value="PlayerOne"
-            />
-          </div>
-          <div class="form-content">
-            <input
-              type="text"
-              name="player-two-name"
-              id="player-two-name"
-              placeholder="PlayerTwo"
-              value="PlayerTwo"
-            />
-          </div>
-          <div class="form-content">
-            <button id="start-game" type="submit">Start Game!</button>
-          </div>
+    </div>
+    <div class="container">
+      <div class="new-game-form">
+        <div class="form-title">New Game</div>
+        <div class="form-content">
+          <select name="game-type" id="game-type">
+            <option value="human-v-human">Human vs Human</option>
+            <option value="human-v-ai" selected>Human vs AI</option>
+            <option value="ai-v-ai">AI vs AI</option>
+          </select>
+        </div>
+        <div class="form-content">
+          <input
+            type="text"
+            name="player-one-name"
+            id="player-one-name"
+            placeholder="PlayerOne"
+            value="PlayerOne"
+          />
+        </div>
+        <div class="form-content">
+          <input
+            type="text"
+            name="player-two-name"
+            id="player-two-name"
+            placeholder="PlayerTwo"
+            value="PlayerTwo"
+          />
+        </div>
+        <div class="form-content">
+          <button id="start-game" type="submit">Start Game!</button>
         </div>
       </div>
-      <div class="scoreboard">
-        <div id="player1-name" class="score">Player 1</div>
-        <div class="score">Tie</div>
-        <div id=playe2-name" class="score">Player 2
-      </div>
-    </div>
-    <div class="scoreboard">
-      <div id="player1-score" class="score">0</div>
-      <div id="tie-score" class="score">0</div>
-      <div id="player2-score" class="score">0</div>
     </div>
     <div class="container">
       <div class="gameboard"></div>
     </div>
+    <div class="message"></div>
     <script type="module" src="js/App.js"></script>
   </body>
 </html>

@@ -22,6 +22,7 @@ body {
 
 .gameboard {
   flex: 0 0 300px;
+  padding: 50px;
   display: flex;
   justify-content: center;
   align-content: center;
@@ -40,7 +41,8 @@ body {
   display: none;
 }
 
-.score {
+.message {
+  flex: 3;
   font-size: 1.5em;
   flex: 0 0 100px;
   text-align: center;

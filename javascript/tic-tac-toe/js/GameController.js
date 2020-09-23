@@ -18,6 +18,9 @@ class GameController {
     this.firstPlayer = firstPlayer;
     this.secondPlayer = secondPlayer;
 
+    this.playerOneWins = 0;
+    this.playerTwoWins = 0;
+
     this.currentPlayer = this.firstPlayer;
 
     this.resetGame(50);
@@ -33,20 +36,23 @@ class GameController {
 
   resetGame(timeOut) {
     setTimeout(() => {
+      this.view.resetMessage();
       this.model.resetState();
       this._swapPlayers();
       this.onGameboardUpdated();
     }, timeOut);
   }
+
   _checkEndGame(board) {
     if (board.hasWinner()) {
-      console.log("Winner!");
-      console.log(this.currentPlayer);
-      this.resetGame(1000);
+      this.view.setMessage(`${this.currentPlayer.name} Wins!`);
+      this.view.render(board);
+      this.resetGame(3000);
     } else {
       if (this.model.isTie()) {
-        console.log("Tie!");
-        this.resetGame(1000);
+        this.view.setMessage("Tied!");
+        this.view.render(board);
+        this.resetGame(3000);
       }
     }
   }
