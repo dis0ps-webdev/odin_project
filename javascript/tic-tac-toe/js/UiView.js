@@ -22,9 +22,16 @@ class UI {
     this._showDiv(this.gameView);
   }
   showForm() {
+    this._resetForm();
     this._showDiv(this.gameForm);
     this._hideDiv(this.scoreBoards);
     this._hideDiv(this.gameView);
+  }
+
+  _resetForm() {
+    this.gameType.value = "human-v-ai";
+    this.playerOneNameBox.value = "PlayerOne";
+    this.playerTwoNameBox.value = "PlayerTwo";
   }
 
   getFormData() {
