@@ -15,3 +15,4 @@ const currentGame = new GameController(gameModel, gameView);
 const currentUI = new UiController(uiView, currentGame);
 
 uiView.showForm();
+
