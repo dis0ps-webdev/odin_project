@@ -8,6 +8,10 @@ class Player {
   getMarker() {
     return this.marker;
   }
+
+  getName() {
+    return this.name;
+  }
 }
 
 export { Player };

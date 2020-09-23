@@ -1,6 +1,7 @@
 class GameboardView {
   constructor(targetDiv) {
     this.targetDiv = targetDiv;
+    this.messageDiv = document.querySelector(".message");
   }
 
   render(gameboard) {
@@ -16,6 +17,14 @@ class GameboardView {
 
       this.targetDiv.appendChild(cellDiv);
     });
+  }
+
+  setMessage(text) {
+    this.messageDiv.textContent = text;
+  }
+
+  resetMessage() {
+    this.messageDiv.textContent = "";
   }
 
   bindClickCell(handler) {

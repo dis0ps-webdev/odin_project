@@ -3,7 +3,7 @@ class UI {
     //major divs
     this.gameForm = document.querySelectorAll(".new-game-form");
     this.gameView = document.querySelectorAll(".gameboard");
-    this.scoreBoards = document.querySelectorAll(".scoreboard");
+    this.messageView = document.querySelectorAll(".message");
 
     //form elements
     this.gameType = document.querySelector("#game-type");
@@ -18,13 +18,13 @@ class UI {
 
   showGame() {
     this._hideDiv(this.gameForm);
-    this._showDiv(this.scoreBoards);
+    this._showDiv(this.messageView);
     this._showDiv(this.gameView);
   }
   showForm() {
     this._resetForm();
     this._showDiv(this.gameForm);
-    this._hideDiv(this.scoreBoards);
+    this._hideDiv(this.messageView);
     this._hideDiv(this.gameView);
   }
 
