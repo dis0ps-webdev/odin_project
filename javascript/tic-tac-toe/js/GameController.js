@@ -34,6 +34,7 @@ class GameController {
   resetGame(timeOut) {
     setTimeout(() => {
       this.model.resetState();
+      this._swapPlayers();
       this.onGameboardUpdated();
     }, timeOut);
   }
