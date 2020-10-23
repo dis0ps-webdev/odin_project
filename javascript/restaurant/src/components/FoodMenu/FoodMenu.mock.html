@@ -1,0 +1,86 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=EB+Garamond&family=Libre+Baskerville:ital@1&display=swap");
+
+      body {
+        font-family: "EB Garamond", serif;
+      }
+      .menu {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border: solid black 1px;
+        margin: 0px;
+        padding: 0px;
+        background-color: rgba(216, 195, 128, 0.6);
+      }
+
+      .menu-category {
+        flex: 1;
+        font-size: 2em;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+
+      .menu-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .menu-item > * {
+        padding: 0px;
+        margin: 0px;
+      }
+
+      .menu-item > h1 {
+        flex: 1;
+        font-size: 1.5em;
+        font-weight: bold;
+        text-transform: uppercase;
+        padding-top: 20px;
+      }
+
+      .menu-item > h2 {
+        flex: 1;
+        font-size: 1.25em;
+        font-weight: bold;
+      }
+
+      .menu-item > h2:before {
+        content: "~ ";
+      }
+
+      .menu-item > h2:after {
+        content: " ~";
+      }
+
+      .menu-item > p {
+        flex: 1;
+        font-size: 1.2em;
+        padding-top: 10px;
+        max-width: 80%;
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="menu">
+      <div class="menu-category">Sandwiches</div>
+      <div class="menu-item">
+        <h1>Turkey Club</h1>
+        <h2>8.99</h2>
+
+        <p>
+          Boar's Head smoked turkey, swiss cheese, microgreens, and house made
+          aoli
+        </p>
+      </div>
+    </div>
+  </body>
+</html>
