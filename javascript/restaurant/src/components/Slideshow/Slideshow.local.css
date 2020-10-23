@@ -1,0 +1,45 @@
+.slideshow {
+  width: 500px;
+  position: relative;
+}
+
+@media only screen and (max-width: 600px) {
+  .slideshow {
+    width: 300px;
+  }
+}
+
+.slideshow > img {
+  max-width: 100%;
+  position: absolute;
+  object-fit: cover;
+
+  animation: fadeIn ease-in-out 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.current-slide {
+  z-index: 2;
+  opacity: 1;
+}
+
+.prev-slide {
+  z-index: 1;
+  opacity: 1;
+}
+
+.hidden-slide {
+  z-index: -1;
+  opacity: 0;
+}
