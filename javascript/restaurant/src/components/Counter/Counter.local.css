@@ -1,0 +1,25 @@
+.component-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.counter {
+  flex: 1;
+  background-color: #cccccc;
+  border: solid 2px #aaaaaa;
+  width: 100px;
+  display: flex;
+  margin: 10px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header {
+  font-size: 50px;
+  font-weight: bold;
+  margin: 20px;
+  flex: 1;
+}
