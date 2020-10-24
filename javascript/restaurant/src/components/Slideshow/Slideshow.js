@@ -58,10 +58,7 @@ class Slideshow extends Component {
   }
 
   _checkRotationState() {
-    console.log(this.currentSlide);
-    console.log(this.totalSlides);
     if (this.currentSlide == this.totalSlides) {
-      console.log("end");
       this._setSlideRotation(this.props.delay, this._prevSlide.bind(this));
     } else if (this.currentSlide == 0) {
       this._setSlideRotation(this.props.delay, this._nextSlide.bind(this));
