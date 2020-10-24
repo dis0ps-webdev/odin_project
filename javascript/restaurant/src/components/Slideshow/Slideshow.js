@@ -1,65 +1,62 @@
 import styles from "./Slideshow.local.css";
+import { Component } from "../Prototype/Component.js";
 
-class Slideshow {
+/*
+Special thanks to @mjadav for the idea on slideshows using flexbox
+https://medium.com/@mjadav/simple-slider-for-your-web-page-50115fbebc61
+*/
+
+class Slideshow extends Component {
   constructor(container, props) {
-    this.targetContainer = container;
-    this.domReference = null;
+    super(container);
 
     this.props = props;
     this.currentSlide = 0;
-
-    this.outputElement = document.createElement("div");
-    this._bindClick();
-    this._setTimer(this.props.delay);
+    this.imagePosition = 0;
+    this.totalSlides = this.props.imageList.length;
+    this._bindHandler("click", this._nextSlide.bind(this));
+    this._setSlideRotation(this.props.delay);
   }
 
   _updateOutputElement() {
-    this.outputElement.className = styles["slideshow"];
+    this.outputElement.innerHTML = "";
+    this.outputElement.className = styles["image-container"];
+
+    this.imageSlider = document.createElement("div");
+    this.imageSlider.className = styles["image-slider"];
+
     let outputImages = "";
 
     for (let index = 0; index < this.props.imageList.length; index++) {
-      let targetStyle = styles["hidden-slide"];
-      if (this.currentSlide == index) {
-        targetStyle = styles["current-slide"];
-      }
-      if (this.currentSlide - 1 == index) {
-        targetStyle = styles["prev-slide"];
-      }
-      outputImages += `<img class=${targetStyle} src=${this.props.imageList[index]} /> `;
+      outputImages += `<img class=${styles["image-slider-item"]} src=${this.props.imageList[index]} /> `;
     }
 
-    this.outputElement.innerHTML = outputImages;
-    /*  this.outputElement.innerHTML = `<img class=${styles["current-slide"]} src=${this.imageList[this.currentSlide]} /> `;*/
+    this.imageSlider.innerHTML = outputImages;
+
+    this.outputElement.append(this.imageSlider);
   }
 
-  _bindClick() {
-    this.outputElement.addEventListener(
-      "click",
-      this._advanceSlides.bind(this)
-    );
+  _setImageSliderTransform() {
+    let sliderItems = this.imageSlider.childNodes;
+    let itemWidth = sliderItems[0].offsetWidth;
+    let imageOffset = -this.imagePosition * itemWidth - this.imagePosition * 3;
+    this.imageSlider.style["transform"] = `translate3d(${imageOffset}px,0,0)`;
   }
 
-  _setTimer(delay) {
-    let msDelay = delay * 1000;
-    setInterval(this._advanceSlides.bind(this), msDelay);
+  _prevSlide() {
+    this.imagePosition = Math.max(this.imagePosition - 1, 0);
+    this._setImageSliderTransform();
   }
 
-  _advanceSlides() {
-    this.currentSlide++;
-    if (this.currentSlide >= this.props.imageList.length) {
-      this.currentSlide = 0;
-    }
-    this.render();
+  _nextSlide() {
+    this.imagePosition = Math.min(this.imagePosition + 1, this.totalSlides - 1);
+    this._setImageSliderTransform();
   }
 
-  render() {
-    this._updateOutputElement();
-    if (this.domReference != null) {
-      this.domReference.innerHTML = this.outputElement.innerHTML;
-    } else {
-      this.targetContainer.append(this.outputElement);
-      this.domReference = this.targetContainer.lastChild;
-    }
+  _setSlideRotation(delay) {
+    setInterval(() => {
+      this._nextSlide();
+    }, delay * 1000);
   }
 }
 
