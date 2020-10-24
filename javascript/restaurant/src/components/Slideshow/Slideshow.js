@@ -15,7 +15,7 @@ class Slideshow extends Component {
     this.imagePosition = 0;
     this.totalSlides = this.props.imageList.length;
     this._bindHandler("click", this._nextSlide.bind(this));
-    this._setSlideRotation(this.props.delay);
+    this._checkRotationState();
   }
 
   _updateOutputElement() {
@@ -44,19 +44,33 @@ class Slideshow extends Component {
   }
 
   _prevSlide() {
+    this.currentSlide--;
     this.imagePosition = Math.max(this.imagePosition - 1, 0);
+    this._checkRotationState();
     this._setImageSliderTransform();
   }
 
   _nextSlide() {
+    this.currentSlide++;
     this.imagePosition = Math.min(this.imagePosition + 1, this.totalSlides - 1);
+    this._checkRotationState();
     this._setImageSliderTransform();
   }
 
-  _setSlideRotation(delay) {
-    setInterval(() => {
-      this._nextSlide();
-    }, delay * 1000);
+  _checkRotationState() {
+    console.log(this.currentSlide);
+    console.log(this.totalSlides);
+    if (this.currentSlide == this.totalSlides) {
+      console.log("end");
+      this._setSlideRotation(this.props.delay, this._prevSlide.bind(this));
+    } else if (this.currentSlide == 0) {
+      this._setSlideRotation(this.props.delay, this._nextSlide.bind(this));
+    }
+  }
+
+  _setSlideRotation(delay, slideHandler) {
+    clearInterval(this.slideRotater);
+    this.slideRotater = setInterval(slideHandler, delay * 1000);
   }
 }
 
