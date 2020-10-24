@@ -4,6 +4,7 @@ import { StickyMenu } from "../components/StickyMenu/StickyMenu.js";
 import { Slideshow } from "../components/Slideshow/Slideshow.js";
 import { FoodMenu } from "../components/FoodMenu/FoodMenu.js";
 import { ImageElement } from "../components/ImageElement/ImageElement.js";
+import { Title } from "../components/Title/Title.js";
 
 const navDiv = document.querySelector("#nav");
 const containerDiv = document.querySelector("#container");
@@ -15,6 +16,15 @@ function addNavigation() {
   };
 
   new StickyMenu(navDiv, navContent).render();
+}
+
+function addTitle() {
+  let titleSettings = {
+    text: "Welcome",
+    color: "#ffffff",
+  };
+
+  new Title(containerDiv, titleSettings).render();
 }
 
 function addImage() {
@@ -70,6 +80,7 @@ function addFoodMenu() {
 }
 
 addNavigation();
+addTitle();
 addImage();
 addSlideshow();
 addFoodMenu();
