@@ -60,5 +60,5 @@ function addFoodMenu() {
 }
 
 addNavigation();
-//addSlideshow();
+addSlideshow();
 addFoodMenu();
