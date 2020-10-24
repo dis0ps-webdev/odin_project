@@ -18,7 +18,7 @@ function addNavigation() {
 
 function addSlideshow() {
   let slideshowSettings = {
-    delay: 8,
+    delay: 3,
     imageList: [
       "images/appetizer-bread.jpg",
       "images/appetizer-fries.jpg",
