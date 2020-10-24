@@ -1,8 +1,9 @@
 import layout from "../css/layout.global.css";
 import typography from "../css/typography.global.css";
-import * as navigation from "../components/StickyMenu/StickyMenu.js";
-import * as image from "../components/Slideshow/Slideshow.js";
+import { StickyMenu } from "../components/StickyMenu/StickyMenu.js";
+import { Slideshow } from "../components/Slideshow/Slideshow.js";
 import { FoodMenu } from "../components/FoodMenu/FoodMenu.js";
+import { ImageElement } from "../components/ImageElement/ImageElement.js";
 
 const navDiv = document.querySelector("#nav");
 const containerDiv = document.querySelector("#container");
@@ -13,7 +14,16 @@ function addNavigation() {
     links: { menu: "#menu", about: "#about", location: "#location" },
   };
 
-  new navigation.StickyMenu(navDiv, navContent).render();
+  new StickyMenu(navDiv, navContent).render();
+}
+
+function addImage() {
+  let imageSettings = {
+    url: "images/cask_n_grill.png",
+    alt: "Cask 'n Grill Logo",
+    size: "50%",
+  };
+  new ImageElement(containerDiv, imageSettings).render();
 }
 
 function addSlideshow() {
@@ -37,7 +47,7 @@ function addSlideshow() {
       "images/entree-steak.jpg",
     ],
   };
-  new image.Slideshow(containerDiv, slideshowSettings).render();
+  new Slideshow(containerDiv, slideshowSettings).render();
 }
 
 function addFoodMenu() {
@@ -60,5 +70,6 @@ function addFoodMenu() {
 }
 
 addNavigation();
+addImage();
 addSlideshow();
 addFoodMenu();
