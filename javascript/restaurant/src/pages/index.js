@@ -5,6 +5,7 @@ import { Slideshow } from "../components/Slideshow/Slideshow.js";
 import { FoodMenu } from "../components/FoodMenu/FoodMenu.js";
 import { ImageElement } from "../components/ImageElement/ImageElement.js";
 import { Title } from "../components/Title/Title.js";
+import { TextBlock } from "../components/TextBlock/TextBlock.js";
 
 const navDiv = document.querySelector("#nav");
 const containerDiv = document.querySelector("#container");
@@ -25,6 +26,15 @@ function addTitle() {
   };
 
   new Title(containerDiv, titleSettings).render();
+}
+
+function addTextBlock() {
+  let textSettings = {
+    text: "Welcome, this is our restaurant.  Please come in, have a drink, and enjoy the food and ambience.",
+    color: "#ffffff",
+  };
+
+  new TextBlock(containerDiv, textSettings).render();
 }
 
 function addImage() {
@@ -81,6 +91,7 @@ function addFoodMenu() {
 
 addNavigation();
 addTitle();
+addTextBlock();
 addImage();
 addSlideshow();
 addFoodMenu();
