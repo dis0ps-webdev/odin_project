@@ -1,9 +1,7 @@
 # Cask n Grill Restaurant
 
 ## TODO
-* Create component for centered image logos
-* Create component for Page titles
-* Create generic text paragraph component
+* Create basic page router using hashchange events
 
 ## Overall Development
 
