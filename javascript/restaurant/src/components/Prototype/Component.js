@@ -12,6 +12,10 @@ class Component {
     */
   }
 
+  _bindWindowHandler(event, handler) {
+    window.addEventListener(event, handler);
+  }
+
   _bindHandler(event, handler) {
     this.outputElement.addEventListener(event, handler);
   }
