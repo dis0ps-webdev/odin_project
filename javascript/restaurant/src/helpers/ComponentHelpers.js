@@ -5,7 +5,6 @@ import { ImageElement } from "../components/ImageElement/ImageElement.js";
 import { Title } from "../components/Title/Title.js";
 import { TextBlock } from "../components/TextBlock/TextBlock.js";
 
-export const navDiv = document.querySelector("#nav");
 export const containerDiv = document.querySelector("#container");
 
 export function clearContainer() {
@@ -16,7 +15,7 @@ export function addNavigation(logoUrl, linkList) {
   let navContent = {};
   navContent.logo = logoUrl;
   navContent.links = linkList;
-  return new StickyMenu(navDiv, navContent);
+  return new StickyMenu(containerDiv, navContent);
 }
 
 export function addTitle(textValue, colorValue) {
