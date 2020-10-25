@@ -1,12 +1,11 @@
 import styles from "./Counter.local.css";
+import { Component } from "../Prototype/Component.js";
 
-class Counter {
+class Counter extends Component {
   constructor(container) {
+    super(container);
     this.counter = 0;
-    this.targetContainer = container;
-    this.domLocation = null;
-    this.outputElement = document.createElement("div");
-    this._bindClick();
+    this._bindHandler("click", this._incrementCounter.bind(this));
   }
 
   _updateOutputElement() {
@@ -20,27 +19,12 @@ class Counter {
     `;
   }
 
-  _bindClick() {
-    this.outputElement.addEventListener("click", (e) =>
-      this._incrementCounter(e)
-    );
-  }
-
   _incrementCounter(e) {
+    
     let styledItems = Object.values(styles);
     if (styledItems.includes(e.target.className)) {
       this.counter++;
       this.render();
-    }
-  }
-
-  render() {
-    this._updateOutputElement();
-    if (this.domLocation != null) {
-      this.domLocation.innerHTML = this.outputElement.innerHTML;
-    } else {
-      this.targetContainer.append(this.outputElement);
-      this.domLocation = this.targetContainer.lastChild;
     }
   }
 }
