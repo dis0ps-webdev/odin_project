@@ -8,16 +8,15 @@ import { TextBlock } from "../components/TextBlock/TextBlock.js";
 export const navDiv = document.querySelector("#nav");
 export const containerDiv = document.querySelector("#container");
 
+export function clearContainer() {
+  containerDiv.innerHTML = "";
+}
+
 export function addNavigation(logoUrl, linkList) {
   let navContent = {};
   navContent.logo = logoUrl;
   navContent.links = linkList;
-  /*   let navContent = {
-    logo: "images/cask_n_grill.png",
-    links: { menu: "#menu", about: "#about", location: "#location" },
-  };
- */
-  new StickyMenu(navDiv, navContent).render();
+  return new StickyMenu(navDiv, navContent);
 }
 
 export function addTitle(textValue, colorValue) {
@@ -25,7 +24,7 @@ export function addTitle(textValue, colorValue) {
   titleSettings.text = textValue;
   titleSettings.color = colorValue;
 
-  new Title(containerDiv, titleSettings).render();
+  return new Title(containerDiv, titleSettings);
 }
 
 export function addTextBlock(textValue, colorValue) {
@@ -33,7 +32,7 @@ export function addTextBlock(textValue, colorValue) {
   textSettings.text = textValue;
   textSettings.color = colorValue;
 
-  new TextBlock(containerDiv, textSettings).render();
+  return new TextBlock(containerDiv, textSettings);
 }
 
 export function addImage(imageUrl, imageAlt, imageSize) {
@@ -43,7 +42,7 @@ export function addImage(imageUrl, imageAlt, imageSize) {
   imageSettings.alt = imageAlt;
   imageSettings.size = imageSize;
 
-  new ImageElement(containerDiv, imageSettings).render();
+  return new ImageElement(containerDiv, imageSettings);
 }
 
 export function addSlideshow(slideDelay, slideImages) {
@@ -51,9 +50,9 @@ export function addSlideshow(slideDelay, slideImages) {
   slideshowSettings.delay = slideDelay;
   slideshowSettings.imageList = slideImages;
 
-  new Slideshow(containerDiv, slideshowSettings).render();
+  return new Slideshow(containerDiv, slideshowSettings);
 }
 
 export function addFoodMenu(menuSettings) {
-  new FoodMenu(containerDiv, menuSettings).render();
+  return new FoodMenu(containerDiv, menuSettings);
 }

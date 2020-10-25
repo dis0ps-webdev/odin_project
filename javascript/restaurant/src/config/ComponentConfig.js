@@ -1,3 +1,6 @@
+import { Page } from "../pages/Prototype/Page";
+
+
 export const ourLogo = "images/cask_n_grill.png";
 
 export const navLinks = {
