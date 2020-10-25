@@ -16,19 +16,13 @@ html {
   width: 100%;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
 #container > div:first-child {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 70px;
 }
-
 
 #container > div:nth-child(n + 2) {
   flex: 1;
