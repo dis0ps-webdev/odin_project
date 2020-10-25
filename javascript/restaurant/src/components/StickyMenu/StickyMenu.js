@@ -8,7 +8,7 @@ class StickyMenu extends Component {
     this.navOriginalPosition = container.offsetTop;
     this.navigationContent = props;
 
-    this._bindWindowHandler("scroll", this._makeSticky.bind(this));
+    this._bindWindowDebounce("scroll", this._makeSticky.bind(this), 10);
   }
 
   _updateOutputElement() {
@@ -32,11 +32,12 @@ class StickyMenu extends Component {
   }
 
   _makeSticky() {
+    let targetElement = document.querySelector(`.${styles["nav-content"]}`);
     if (this.domLocation.offsetTop < window.pageYOffset) {
-      this.domLocation.classList.add(styles["sticky"]);
+      targetElement.classList.add(styles["sticky"]);
     }
     if (window.pageYOffset < this.navOriginalPosition) {
-      this.domLocation.classList.remove(styles["sticky"]);
+      targetElement.classList.remove(styles["sticky"]);
     }
   }
 }

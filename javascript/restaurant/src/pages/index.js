@@ -5,7 +5,6 @@ import { PageAbout } from "./PageAbout.js";
 import { PageMenu } from "./PageMenu.js";
 import { PageLocation } from "./PageLocation.js";
 
-export const navDiv = document.querySelector("#nav");
 export const containerDiv = document.querySelector("#container");
 
 const routeMapping = {
@@ -17,7 +16,6 @@ const routeMapping = {
 function changePage() {
   let currentHash = document.location.hash;
   let currentPage = new routeMapping[currentHash](containerDiv);
-  navDiv.innerHTML = "";
   currentPage.render();
 }
 
