@@ -1,15 +1,14 @@
 import styles from "./StickyMenu.local.css";
+import { Component } from "../Prototype/Component.js";
 
-class StickyMenu {
+class StickyMenu extends Component {
   constructor(container, props) {
-    this.targetContainer = container;
-    this.navOriginalPosition = container.offsetTop;
-    this.domReference = null;
+    super(container);
 
+    this.navOriginalPosition = container.offsetTop;
     this.navigationContent = props;
 
-    this.outputElement = document.createElement("div");
-    this._bindClick();
+    this._bindWindowHandler("scroll", this._makeSticky.bind(this));
   }
 
   _updateOutputElement() {
@@ -32,32 +31,12 @@ class StickyMenu {
     }
   }
 
-  _bindClick() {
-    this.outputElement.addEventListener("click", this._handleClick.bind(this));
-    window.addEventListener("scroll", this._makeSticky.bind(this));
-  }
-
   _makeSticky() {
-    if (this.domReference.offsetTop < window.pageYOffset) {
-      this.domReference.classList.add(styles["sticky"]);
+    if (this.domLocation.offsetTop < window.pageYOffset) {
+      this.domLocation.classList.add(styles["sticky"]);
     }
     if (window.pageYOffset < this.navOriginalPosition) {
-      this.domReference.classList.remove(styles["sticky"]);
-    }
-  }
-
-  _handleClick(e) {
-    let clickedItem = e.target.id;
-    console.log(clickedItem);
-  }
-
-  render() {
-    this._updateOutputElement();
-    if (this.domReference != null) {
-      this.domReference.innerHTML = this.outputElement.innerHTML;
-    } else {
-      this.targetContainer.append(this.outputElement);
-      this.domReference = this.targetContainer.lastChild;
+      this.domLocation.classList.remove(styles["sticky"]);
     }
   }
 }
