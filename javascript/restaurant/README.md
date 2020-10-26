@@ -1,24 +1,29 @@
 # Cask n Grill Restaurant
 
-## TODO
-* Create basic page router using hashchange events
+## Finished Product
+
+Site: https://dis0ps.github.io/caskngrill
+
+Webpack Template: https://github.com/dis0ps/webpack-template
 
 ## Overall Development
 
-This kind of spiraled from the original task of creating a site using only Javascript to a full exploration of component-based design.  Along the way the following concepts were explored:
+This kind of spiraled from the original task of creating a site using only Javascript to a full exploration of component-based design.  This is getting pretty close to React style development, where using a framework would make much more sense.  The basic concepts learned here can carry over to framework-driven development as well.
+
+Along the way the following concepts were explored:
+
+### Components and Single Page Application (SPA) Functionality
 
 * ES6 classes and inheritance
 * Localized CSS with Webpack
+* Page Routing via Hash Changes
+
+### General Web Development and Packing
+
+* Separating layout and typography from components
 * CSS Imports with Webpack
 * Google Fonts API for being pretty
 * ImageMagick transformation of images
-
-This is getting pretty close to React style development, which using a framework would make much more sense.  The basic concepts learned here can carry over to framework-driven development as well:
-
-* Separate layout and typography from components
-* Localize area of effect where possible with components
-* Webpack is an amazing tool with no real one way to do things
-
 
 ## Image Manipulation
 
@@ -36,4 +41,5 @@ mogrify -filter Triangle -define filter:support=2 -unsharp 0.25x0.25+8+0.065 -di
 
 * Explore ways to ensure the site renders correctly using Babel
 * Lazy loading of images that are large (slideshow is a bit big)
+* Explore more elaborate page routing with History API integration
 * Explore using JSX outside of React, manually creating HTML is messy and error prone
