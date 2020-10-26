@@ -7,7 +7,6 @@
   margin: 0px;
   padding: 0px;
   color: white;
-  /* background-color: rgb(255, 236, 169, 0.4); */
 }
 
 .menu-category {
@@ -15,6 +14,7 @@
   font-size: 2em;
   font-weight: bolder;
   text-transform: uppercase;
+  padding-top: 40px;
 }
 
 .menu-item {
@@ -24,17 +24,13 @@
   justify-content: center;
 }
 
-.menu-item > * {
-  padding: 0px;
-  margin: 0px;
-}
-
 .menu-item > h1 {
   flex: 1;
   font-size: 1.25em;
   font-weight: bold;
   text-transform: uppercase;
   padding-top: 20px;
+  text-align: center;
 }
 
 .menu-item > h2 {

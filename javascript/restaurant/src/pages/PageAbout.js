@@ -8,7 +8,11 @@ class PageAbout extends Page {
       this.componentFactory.createNavigation(config.ourLogo, config.navLinks)
     );
     this._addComponent(
-      this.componentFactory.createImage(config.ourLogo, "Cask n Grill Logo", "50%")
+      this.componentFactory.createImage(
+        config.ourLogo,
+        "Cask n Grill Logo",
+        "50%"
+      )
     );
 
     let welcomeMessage =
@@ -16,16 +20,6 @@ class PageAbout extends Page {
 
     this._addComponent(
       this.componentFactory.createTextBlock(welcomeMessage, "#ffffff")
-    );
-
-    this._addComponent(
-      this.componentFactory.createTitle("Hours of Operation", "#ffffff")
-    );
-
-    let hoursOfOperation = `Tuesday - Saturday: 4:00 PM - 10:00 PM <br/> Sunday, Monday: Closed`;
-
-    this._addComponent(
-      this.componentFactory.createTextBlock(hoursOfOperation, "#ffffff")
     );
   }
 }
