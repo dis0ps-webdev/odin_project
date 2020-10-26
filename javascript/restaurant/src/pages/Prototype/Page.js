@@ -1,6 +1,9 @@
+import { ComponentFactory } from "../../components/ComponentFactory/ComponentFactory.js";
+
 class Page {
   constructor(container) {
     this.outputElement = container;
+    this.componentFactory = new ComponentFactory(container);
     this.componentList = [];
   }
 
