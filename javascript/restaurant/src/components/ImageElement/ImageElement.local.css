@@ -6,6 +6,6 @@
 }
 
 .image-container > img {
-  display: inline-block;
-  background-size: cover;
+  display:inline-block;
+  align-self: flex-start;
 }
