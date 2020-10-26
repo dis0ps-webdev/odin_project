@@ -1,0 +1,13 @@
+.iframe-container {
+  display: flex;
+  width: 100%;
+  flex-wrap: nowrap;
+  justify-content: center;
+  border: 0;
+}
+
+.title-container > iframe {
+  flex: 1;
+  margin: 0px;
+  padding: 0px;
+}
