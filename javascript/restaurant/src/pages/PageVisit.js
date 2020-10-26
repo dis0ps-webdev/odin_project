@@ -24,6 +24,14 @@ class PageVisit extends Page {
     this._addComponent(
       this.componentFactory.createTextBlock(hoursOfOperation, "#ffffff")
     );
+
+    this._addComponent(
+      this.componentFactory.createTitle("Location", "#ffffff")
+    );
+
+    this._addComponent(
+      this.componentFactory.createIFrame(config.ourLocation, "100%", "300px")
+    );
   }
 }
 

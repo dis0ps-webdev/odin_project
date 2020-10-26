@@ -95,3 +95,5 @@ export const ourMenu = {
     },
   ],
 };
+
+export const ourLocation = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2968.4896439128343!2d-72.67062217123345!3d41.92532874782402!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89e6fe785ede37a7%3A0xfa5281cac17a32f9!2s17%20Schoephoester%20Rd%2C%20Windsor%20Locks%2C%20CT%2006096!5e0!3m2!1sen!2sus!4v1603678498621!5m2!1sen!2sus";

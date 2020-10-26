@@ -4,6 +4,7 @@ import { FoodMenu } from "../FoodMenu/FoodMenu.js";
 import { ImageElement } from "../ImageElement/ImageElement.js";
 import { Title } from "../Title/Title.js";
 import { TextBlock } from "../TextBlock/TextBlock.js";
+import { IFrame } from "../IFrame/IFrame.js";
 
 class ComponentFactory {
   constructor(container) {
@@ -53,6 +54,14 @@ class ComponentFactory {
 
   createFoodMenu(menuSettings) {
     return new FoodMenu(this.targetElement, menuSettings);
+  }
+  createIFrame(location, width, height) {
+    let iframeSettings = {};
+    iframeSettings.src = location;
+    iframeSettings.width = width;
+    iframeSettings.height = height;
+
+    return new IFrame(this.targetElement, iframeSettings);
   }
 }
 
