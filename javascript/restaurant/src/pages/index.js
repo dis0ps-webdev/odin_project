@@ -1,25 +1,9 @@
 import layout from "../css/layout.global.css";
 import typography from "../css/typography.global.css";
-import * as config from "../config/ComponentConfig.js";
-import { PageAbout } from "./PageAbout.js";
-import { PageMenu } from "./PageMenu.js";
-import { PageLocation } from "./PageLocation.js";
+import { Router } from "./Router.js";
+import * as config from "../config/AppConfig.js";
 
-export const containerDiv = document.querySelector("#container");
+const router = new Router(config.containerDiv, config.routeMapping);
 
-const routeMapping = {
-  "#about": PageAbout,
-  "#menu": PageMenu,
-  "#location": PageLocation,
-};
-
-function changePage() {
-  let currentHash = document.location.hash;
-  let currentPage = new routeMapping[currentHash](containerDiv);
-  currentPage.render();
-}
-
-window.addEventListener("hashchange", changePage);
-window.addEventListener("DOMContentLoaded", changePage);
-
+//Default location
 document.location.hash = "#about";

@@ -1,5 +1,14 @@
-import { Page } from "../pages/Prototype/Page";
+import { PageAbout } from "../pages/PageAbout.js";
+import { PageMenu } from "../pages/PageMenu.js";
+import { PageLocation } from "../pages/PageLocation.js";
 
+export const containerDiv = document.querySelector("#container");
+
+export const routeMapping = {
+  "#about": PageAbout,
+  "#menu": PageMenu,
+  "#location": PageLocation,
+};
 
 export const ourLogo = "images/cask_n_grill.png";
 
