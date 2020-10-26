@@ -10,14 +10,14 @@ class ComponentFactory {
     this.targetElement = document.querySelector("#container");
   }
 
-  addNavigation(logoUrl, linkList) {
+  createNavigation(logoUrl, linkList) {
     let navContent = {};
     navContent.logo = logoUrl;
     navContent.links = linkList;
     return new StickyMenu(this.targetElement, navContent);
   }
 
-  addTitle(textValue, colorValue) {
+  createTitle(textValue, colorValue) {
     let titleSettings = {};
     titleSettings.text = textValue;
     titleSettings.color = colorValue;
@@ -25,7 +25,7 @@ class ComponentFactory {
     return new Title(this.targetElement, titleSettings);
   }
 
-  addTextBlock(textValue, colorValue) {
+  createTextBlock(textValue, colorValue) {
     let textSettings = {};
     textSettings.text = textValue;
     textSettings.color = colorValue;
@@ -33,7 +33,7 @@ class ComponentFactory {
     return new TextBlock(this.targetElement, textSettings);
   }
 
-  addImage(imageUrl, imageAlt, imageSize) {
+  createImage(imageUrl, imageAlt, imageSize) {
     let imageSettings = {};
 
     imageSettings.url = imageUrl;
@@ -43,7 +43,7 @@ class ComponentFactory {
     return new ImageElement(this.targetElement, imageSettings);
   }
 
-  addSlideshow(slideDelay, slideImages) {
+  createSlideshow(slideDelay, slideImages) {
     let slideshowSettings = {};
     slideshowSettings.delay = slideDelay;
     slideshowSettings.imageList = slideImages;
@@ -51,7 +51,7 @@ class ComponentFactory {
     return new Slideshow(this.targetElement, slideshowSettings);
   }
 
-  addFoodMenu(menuSettings) {
+  createFoodMenu(menuSettings) {
     return new FoodMenu(this.targetElement, menuSettings);
   }
 }
