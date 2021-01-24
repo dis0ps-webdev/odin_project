@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "noEmit": true
+    "noEmit": true,
+    "esModuleInterop": true,
+    "strict": true
   },
-  "include": ["src/**/*.tsx?"],
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
   "exclude": [
     "node_modules",
     "**/__snapshots__/*",
