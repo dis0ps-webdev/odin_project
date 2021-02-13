@@ -8,13 +8,15 @@
   padding-top: 130px;
   padding-bottom: 100px;
   margin: 15px;
+  width: 100%;
 
   .list-item {
     flex: 1;
     display: flex;
     border: 1px solid rgba(112, 112, 112, 1);
-    margin-top: 10px;
-    margin-bottom: 10px;
+    width: 95%;
+    margin-top: 5px;
+    margin-bottom: 5px;
     cursor: pointer;
   }
 
