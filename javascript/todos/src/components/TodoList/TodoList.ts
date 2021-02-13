@@ -1,14 +1,28 @@
 import styles from "./TodoList.local.scss";
 import { Component } from "../Prototype/Component";
 import { PubSub } from "../../app/pubsub/PubSub";
+import { Project } from "../../app/model/Project";
+import { format } from "date-fns";
+import * as config from "../../app/config/AppConfig";
 
 class TodoList extends Component {
   private refPubSub: PubSub;
+  private currentProject: Project;
 
   constructor(container: Element, pubsub: PubSub) {
     super(container);
     this.refPubSub = pubsub;
+    this.currentProject = new Project();
+    this.refPubSub.subscribe(
+      config.enumEventMessages.UPDATED_PROJECT,
+      this.handleProjectUpdate.bind(this)
+    );
     this._bindHandler("click", this.handleClick.bind(this));
+  }
+
+  private handleProjectUpdate(data: any) {
+    this.currentProject = <Project>data;
+    this._updateOutputElement();
   }
 
   private handleClick(e: Event) {
@@ -20,19 +34,25 @@ class TodoList extends Component {
   }
 
   protected _updateOutputElement() {
+    const projectData = this.currentProject.getData();
     this.outputElement.className = styles["list"];
-    this.outputElement.innerHTML = `
-    <div id="guid" class=${styles["list-item"]}>
-      <div class=${styles["item-highlight-high"]}></div>
-      <div class=${styles["item-content"]}>
-        <span>Take out garbage</span>
-        <span>Lorem, ipsum dolor sit amet consectetur adipisicing elit.
-          Voluptates itaque optio esse fugiat commodi et error nam
-          consectetur dolorum maiores saepe possimus debitis, quasi
-          voluptatibus nostrum, quibusdam sit eum! Illo.</span>
-        <span>Due: 01/03/2021</span>
+    this.outputElement.innerHTML = "";
+    projectData.arrTodo.forEach((objTodo) => {
+      const todoItem = objTodo.getData();
+      const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
+      const priorityLevel = `item-highlight-${config.enumPriorities[todoItem.priority]}`.toLowerCase();
+      console.log(priorityLevel)
+      this.outputElement.innerHTML += `
+      <div id="${todoItem.id}" class=${styles["list-item"]}>
+        <div class=${styles[priorityLevel]}></div>
+        <div class=${styles["item-content"]}>
+          <span>${todoItem.name}</span>
+          <span>${todoItem.description}</span>
+          <span>Due: ${dueDate}</span>
+        </div>
       </div>
     `;
+    });
   }
 }
 
