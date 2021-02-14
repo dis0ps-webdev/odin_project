@@ -7,3 +7,4 @@ declare module "*.scss" {
   const classNames: IClassNames;
   export default classNames;
 }
+
