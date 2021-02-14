@@ -1,0 +1,63 @@
+.edit-task {
+  flex: 1;
+  padding: 0px;
+  padding-top: 130px;
+  padding-bottom: 100px;
+  margin: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .edit-task-content {
+    flex: 1;
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+
+    label {
+      font-size: 1.2em;
+      font-weight: bolder;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select,
+    button {
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+
+      font-family: "Lato", sans-serif;
+      font-size: 1.2em;
+
+      padding: 5px;
+      margin-bottom: 5px;
+
+      width: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+      outline: none;
+      border: 1px solid rgba(112, 112, 112, 1);
+    }
+
+    select {
+      height: 40px;
+      background-image: url("../../images/down_arrow.svg");
+      background-color: #8d4cb5;
+      color: #fff;
+      background-size: 30px 30px;
+      background-position: 98% top;
+      background-repeat: no-repeat;
+    }
+
+    button {
+      background-color: #584cb5;
+      color: #fff;
+      margin-top: 10px;
+    }
+  }
+}
