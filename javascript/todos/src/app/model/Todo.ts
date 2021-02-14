@@ -7,7 +7,7 @@ export class TodoData {
   public name: string = "";
   public isDone: boolean = false;
   public description?: string = "";
-  public priority: config.enumPriorities = config.enumPriorities.MEDIUM;
+  public priority: config.enumPriorities = config.enumPriorities.Medium;
   public notes: string = "";
   public arrTodo: Array<Todo> = [];
   public dueDate: Date = new Date();
