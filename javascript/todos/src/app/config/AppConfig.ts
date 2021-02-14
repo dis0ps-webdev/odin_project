@@ -1,6 +1,4 @@
 import elementClosest from "element-closest";
-import { compareAsc, format } from "date-fns";
-import { Project } from "../model/Project";
 
 //Element.closest and Element.matches polyfills
 elementClosest(window);
@@ -10,12 +8,18 @@ export const containerDiv: Element = <Element>(
 );
 
 export enum enumPriorities {
-  LOW = 1,
-  MEDIUM = 2,
-  HIGH = 3
+  "Low",
+  "Medium",
+  "High",
+}
+
+export enum enumStatus {
+  "Todo",
+  "In-Progress",
+  "Done",
 }
 
 export enum enumEventMessages {
-  UPDATED_PROJECT = 1
-
+  "UPDATED_PROJECT",
+  "ADDED_TODO",
 }
