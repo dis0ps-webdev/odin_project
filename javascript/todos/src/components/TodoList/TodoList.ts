@@ -3,7 +3,7 @@ import { Component } from "../Prototype/Component";
 import { PubSub } from "../../app/pubsub/PubSub";
 import { Project } from "../../app/model/Project";
 import { format } from "date-fns";
-import * as config from "../../app/config/AppConfig";
+import * as app from "../../app/App";
 
 class TodoList extends Component {
   private refPubSub: PubSub;
@@ -14,7 +14,7 @@ class TodoList extends Component {
     this.refPubSub = pubsub;
     this.currentProject = new Project();
     this.refPubSub.subscribe(
-      config.enumEventMessages.UPDATED_PROJECT,
+      app.enumEventMessages.UPDATED_PROJECT,
       this.handleProjectUpdate.bind(this)
     );
     this._bindHandler("click", this.handleClick.bind(this));
@@ -40,7 +40,7 @@ class TodoList extends Component {
     projectData.arrTodo.forEach((objTodo) => {
       const todoItem = objTodo.getData();
       const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
-      const priorityLevel = `item-highlight-${config.enumPriorities[todoItem.priority]}`.toLowerCase();
+      const priorityLevel = `item-highlight-${app.enumPriorities[todoItem.priority]}`.toLowerCase();
       console.log(priorityLevel)
       this.outputElement.innerHTML += `
       <div id="${todoItem.id}" class=${styles["list-item"]}>

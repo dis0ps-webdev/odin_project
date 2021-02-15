@@ -1,5 +1,5 @@
 import { Model } from "./Prototype/Model";
-import * as config from "../config/AppConfig";
+import * as app from "../../app/App";
 import { v4 as uuidv4 } from "uuid";
 
 export class TodoData {
@@ -7,7 +7,7 @@ export class TodoData {
   public name: string = "";
   public isDone: boolean = false;
   public description?: string = "";
-  public priority: config.enumPriorities = config.enumPriorities.Medium;
+  public priority: app.enumPriorities = app.enumPriorities.Medium;
   public notes: string = "";
   public arrTodo: Array<Todo> = [];
   public dueDate: Date = new Date();
