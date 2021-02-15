@@ -14,7 +14,7 @@ class TodoList extends Component {
     this.refPubSub = pubsub;
     this.currentProject = new Project();
     this.refPubSub.subscribe(
-      app.enumEventMessages.UPDATED_PROJECT,
+      app.enumEventMessages.UPDATE_PROJECT,
       this.handleProjectUpdate.bind(this)
     );
     this._bindHandler("click", this.handleClick.bind(this));
