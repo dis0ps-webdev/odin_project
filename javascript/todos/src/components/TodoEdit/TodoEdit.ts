@@ -2,7 +2,8 @@ import styles from "./TodoEdit.local.scss";
 import { Component } from "../Prototype/Component";
 import { PubSub } from "../../app/pubsub/PubSub";
 import { TodoData } from "../../app/model/Todo";
-import * as config from "../../app/config/AppConfig";
+import * as app from "../../app/App";
+
 
 class TodoEdit extends Component {
   private refPubSub: PubSub;
@@ -50,11 +51,11 @@ class TodoEdit extends Component {
       <input type="text" name="description" id="description-text" />
       <label for="Status">Status</label>
       <select name="status" id="status-select">
-      ${this.generateOptionsFromEnum(config.enumStatus)}
+      ${this.generateOptionsFromEnum(app.enumStatus)}
       </select>
       <label for="Priority">Priority</label>
       <select name="priority" id="priority-select">
-      ${this.generateOptionsFromEnum(config.enumPriorities)}
+      ${this.generateOptionsFromEnum(app.enumPriorities)}
       </select>
       <label for="due-date">Due Date</label>
       <input type="text" name="due-date" id="due-date" />
