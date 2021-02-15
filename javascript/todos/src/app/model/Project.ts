@@ -23,8 +23,9 @@ export class Project {
     return this.data;
   }
 
-  public addTodoItem(objTodo: Todo) {
-    this.data.arrTodo.push(objTodo);
+  public addTodoItem(dataObject: TodoData) {
+    let newTodo = new Todo(dataObject);
+    this.data.arrTodo.push(newTodo);
   }
 
   public getTodoItem(id: string) {
