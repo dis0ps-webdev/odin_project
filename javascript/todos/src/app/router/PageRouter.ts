@@ -1,24 +1,43 @@
-import * as config from "../config/AppConfig";
+import * as app from "../App";
+import * as pages from "../../pages/Pages";
 
 export class PageRouter {
+  private targetElement: Element;
+  private refPubSub: app.PubSub;
 
-  private targetElement: any;
-  private routeMapping: any;
-
-  constructor(container: any, mapping: any) {
+  constructor(container: Element, pubsub: app.PubSub) {
     this.targetElement = container;
-    this.routeMapping = mapping;
-    this._bindPageEvents();
+    this.refPubSub = pubsub;
+
+    this.subscribePageEvents();
   }
 
-  _loadPage() {
-    let currentHash = document.location.hash;
-    let currentPage = new this.routeMapping[currentHash](this.targetElement);
+  private subscribePageEvents() {
+    this.refPubSub.subscribe(
+      app.enumEventMessages.CHANGE_VIEW_EDIT,
+      this.loadEditPage.bind(this)
+    );
+
+    this.refPubSub.subscribe(
+      app.enumEventMessages.CHANGE_VIEW_LIST,
+      this.loadListPage.bind(this)
+    );
+  }
+
+  private loadEditPage(dataObject: app.TodoData | null) {
+    let currentPage = new pages.EditPage(this.targetElement, this.refPubSub);
     currentPage.render();
+    if (dataObject) {
+      setTimeout(
+        () =>
+            this.refPubSub.publish(app.enumEventMessages.LOAD_TODO, dataObject),
+        50
+      );
+    }
   }
 
-  _bindPageEvents() {
-    window.addEventListener("hashchange", this._loadPage.bind(this));
-    window.addEventListener("DOMContentLoaded", this._loadPage.bind(this));
+  private loadListPage() {
+    let currentPage = new pages.ListPage(this.targetElement, this.refPubSub);
+    currentPage.render();
   }
 }
