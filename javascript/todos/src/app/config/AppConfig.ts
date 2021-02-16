@@ -9,12 +9,6 @@ export const containerDiv: Element = <Element>(
   document.querySelector("#container")
 );
 
-export enum enumPages {
-  "#edit" = "EditPage",
-  "#list" = "ListPage",
-  "#settings" = "SettingsPage",
-}
-
 export enum enumPriorities {
   "Low",
   "Medium",
@@ -32,6 +26,7 @@ export enum enumEventMessages {
   "CHANGE_PROJECT",
   "ADD_PROJECT",
   "ADD_TODO",
+  "LOAD_TODO",
   "UPDATE_PROJECT",
   "UPDATE_TODO",
   "CHANGE_LIST_FILTER",
