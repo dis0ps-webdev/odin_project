@@ -17,35 +17,15 @@ header.render();
 footer.render();
 todoList.render();
 
-let project1 = app.Factory.createProjectTemplate();
-let thisProject = app.Factory.createProject(project1);
+const controller = new app.Controller(pubsub);
 
 let todo1 = app.Factory.createTodoTemplate();
 todo1.name = "Todo 1";
 todo1.description = "Todo Description";
 todo1.dueDate = new Date();
 
-thisProject.addTodoItem(todo1);
-
-pubsub.publish(app.enumEventMessages.UPDATE_PROJECT, thisProject);
-
+pubsub.publish(app.enumEventMessages.ADD_TODO, todo1);
+pubsub.publish(app.enumEventMessages.ADD_TODO, todo1);
 setTimeout(() => {
-  let tempTodo = thisProject.getTodoItem(todo1.id);
-  if (tempTodo) {
-    let tempData = tempTodo.getData();
-    tempData.description = "This was updated";
-    tempData.priority = app.enumPriorities.High;
-    tempTodo.updateData(tempData);
-  }
-  pubsub.publish(app.enumEventMessages.UPDATE_PROJECT, thisProject);
-
-  for (let i = 0; i <= 10; i++) {
-    let todo1 = app.Factory.createTodoTemplate();
-    todo1.name = "Todo 1";
-    todo1.description = "Todo Description";
-    todo1.dueDate = new Date();
-
-    thisProject.addTodoItem(todo1);
-    pubsub.publish(app.enumEventMessages.UPDATE_PROJECT, thisProject);
-  }
+  pubsub.publish(app.enumEventMessages.ADD_TODO, todo1);
 }, 5000);

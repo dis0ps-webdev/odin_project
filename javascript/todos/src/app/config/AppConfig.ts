@@ -3,17 +3,17 @@ import elementClosest from "element-closest";
 //Element.closest and Element.matches polyfills
 elementClosest(window);
 
-export const debug = true;
+export const debug = false;
 
 export const containerDiv: Element = <Element>(
   document.querySelector("#container")
 );
 
-export enum enumPages{
-    "#edit" = "EditPage",
-    "#list" = "ListPage",
-    "#settings" = "SettingsPage",
-  };
+export enum enumPages {
+  "#edit" = "EditPage",
+  "#list" = "ListPage",
+  "#settings" = "SettingsPage",
+}
 
 export enum enumPriorities {
   "Low",
@@ -28,6 +28,7 @@ export enum enumStatus {
 }
 
 export enum enumEventMessages {
+  "UPDATE_VIEWS",
   "CHANGE_PROJECT",
   "ADD_PROJECT",
   "ADD_TODO",
@@ -38,4 +39,5 @@ export enum enumEventMessages {
   "CHANGE_VIEW_LIST",
   "CHANGE_VIEW_SETTINGS",
   "SAVE_APP_STATE",
+  "LOAD_APP_STATE",
 }

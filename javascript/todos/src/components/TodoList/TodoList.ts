@@ -14,7 +14,7 @@ class TodoList extends Component {
     this.refPubSub = pubsub;
     this.currentProject = new Project();
     this.refPubSub.subscribe(
-      app.enumEventMessages.UPDATE_PROJECT,
+      app.enumEventMessages.UPDATE_VIEWS,
       this.handleProjectUpdate.bind(this)
     );
     this._bindHandler("click", this.handleClick.bind(this));
@@ -40,8 +40,9 @@ class TodoList extends Component {
     projectData.arrTodo.forEach((objTodo) => {
       const todoItem = objTodo.getData();
       const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
-      const priorityLevel = `item-highlight-${app.enumPriorities[todoItem.priority]}`.toLowerCase();
-      console.log(priorityLevel)
+      const priorityLevel = `item-highlight-${
+        app.enumPriorities[todoItem.priority]
+      }`.toLowerCase();
       this.outputElement.innerHTML += `
       <div id="${todoItem.id}" class=${styles["list-item"]}>
         <div class=${styles[priorityLevel]}></div>
