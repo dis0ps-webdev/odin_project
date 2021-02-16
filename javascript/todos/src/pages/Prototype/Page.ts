@@ -1,13 +1,18 @@
-export class Page {
-  private outputElement: any;
-  private componentList: any[];
+import * as app from "../../app/App";
+import { PubSub } from "../../app/App";
 
-  constructor(container: any) {
+export class Page {
+  protected outputElement: Element;
+  protected refPubSub: app.PubSub;
+  protected componentList: any[];
+
+  constructor(container: any, pubsub: PubSub) {
     this.outputElement = container;
+    this.refPubSub = pubsub;
     this.componentList = [];
   }
 
-  private clearContainer() {
+  protected clearContainer() {
     while (this.outputElement.firstChild) {
       this.outputElement.removeChild(this.outputElement.firstChild);
     }
