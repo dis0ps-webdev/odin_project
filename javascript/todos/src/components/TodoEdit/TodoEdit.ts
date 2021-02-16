@@ -1,19 +1,20 @@
 import styles from "./TodoEdit.local.scss";
 import { Component } from "../Prototype/Component";
-import { PubSub } from "../../app/pubsub/PubSub";
-import { TodoData } from "../../app/model/Todo";
 import * as app from "../../app/App";
 
-
 class TodoEdit extends Component {
-  private refPubSub: PubSub;
-  private currentTodo: TodoData;
+  private refPubSub: app.PubSub;
+  private currentTodo: app.TodoData;
 
-  constructor(container: Element, pubsub: PubSub) {
+  constructor(container: Element, pubsub: app.PubSub) {
     super(container);
     this.refPubSub = pubsub;
-    this.currentTodo = new TodoData();
+    this.currentTodo = new app.TodoData();
     this._bindHandler("click", this.handleClick.bind(this));
+    this.refPubSub.subscribe(
+      app.enumEventMessages.LOAD_TODO,
+      this.loadTodo.bind(this)
+    );
   }
 
   private handleClick(e: Event) {
@@ -22,9 +23,35 @@ class TodoEdit extends Component {
       console.log(targetClick.id);
       switch (targetClick.id) {
         case "save-button":
-          // pub todoData, sub should catch at controller
+          this.saveTodo();
           break;
       }
+    }
+  }
+
+  private saveTodo() {
+    let titleText = <HTMLInputElement>(
+      this.targetContainer.querySelector("#title-text")
+    );
+    if (titleText) {
+      this.currentTodo.name = titleText.value;
+    }
+    this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
+    setTimeout(() => {
+      this.refPubSub.publish(
+        app.enumEventMessages.UPDATE_TODO,
+        this.currentTodo
+      );
+    }, 50);
+  }
+
+  private loadTodo(dataObject: app.TodoData) {
+    this.currentTodo = dataObject;
+    let titleText = <HTMLInputElement>(
+      this.targetContainer.querySelector("#title-text")
+    );
+    if (titleText) {
+      titleText.value = dataObject.name;
     }
   }
 

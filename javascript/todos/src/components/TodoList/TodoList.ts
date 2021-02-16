@@ -1,18 +1,16 @@
 import styles from "./TodoList.local.scss";
 import { Component } from "../Prototype/Component";
-import { PubSub } from "../../app/pubsub/PubSub";
-import { Project } from "../../app/model/Project";
-import { format } from "date-fns";
 import * as app from "../../app/App";
+import { format } from "date-fns";
 
 class TodoList extends Component {
-  private refPubSub: PubSub;
-  private currentProject: Project;
+  private refPubSub: app.PubSub;
+  private currentProject: app.Project;
 
-  constructor(container: Element, pubsub: PubSub) {
+  constructor(container: Element, pubsub: app.PubSub) {
     super(container);
     this.refPubSub = pubsub;
-    this.currentProject = new Project();
+    this.currentProject = new app.Project();
     this.refPubSub.subscribe(
       app.enumEventMessages.UPDATE_VIEWS,
       this.handleProjectUpdate.bind(this)
@@ -21,15 +19,23 @@ class TodoList extends Component {
   }
 
   private handleProjectUpdate(data: any) {
-    this.currentProject = <Project>data;
+    this.currentProject = <app.Project>data;
     this._updateOutputElement();
   }
 
   private handleClick(e: Event) {
     if (e.target) {
       const targetClick = e.target as HTMLElement;
-
-      console.log(targetClick.closest(`.${styles["list-item"]}`));
+      let clickedTodo = targetClick.closest(`.${styles["list-item"]}`);
+      if (clickedTodo) {
+        let todoObject = this.currentProject.getTodoItem(clickedTodo.id);
+        if (todoObject) {
+          this.refPubSub.publish(
+            app.enumEventMessages.CHANGE_VIEW_EDIT,
+            todoObject.getData()
+          );
+        }
+      }
     }
   }
 

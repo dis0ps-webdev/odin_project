@@ -1,11 +1,11 @@
 import styles from "./Footer.local.scss";
 import { Component } from "../Prototype/Component";
-import { PubSub } from "../../app/pubsub/PubSub";
+import * as app from "../../app/App";
 
 class Footer extends Component {
-  private refPubSub: PubSub;
+  private refPubSub: app.PubSub;
 
-  constructor(container: Element, pubsub: PubSub) {
+  constructor(container: Element, pubsub: app.PubSub) {
     super(container);
     this.refPubSub = pubsub;
     this._bindHandler("click", this.handleClick.bind(this));
@@ -15,8 +15,11 @@ class Footer extends Component {
   private handleClick(e: Event) {
     if (e.target) {
       const targetClick = e.target as HTMLElement;
-      if (targetClick.id) {
-        console.log(`Click: ${targetClick.id}`);
+
+      switch (targetClick.id) {
+        case "add-button":
+          this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_EDIT, null);
+          break;
       }
     }
   }
