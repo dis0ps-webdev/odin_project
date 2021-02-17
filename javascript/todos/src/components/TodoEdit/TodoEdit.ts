@@ -36,13 +36,8 @@ class TodoEdit extends Component {
     if (titleText) {
       this.currentTodo.name = titleText.value;
     }
+    this.refPubSub.publish(app.enumEventMessages.UPDATE_TODO, this.currentTodo);
     this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
-    setTimeout(() => {
-      this.refPubSub.publish(
-        app.enumEventMessages.UPDATE_TODO,
-        this.currentTodo
-      );
-    }, 50);
   }
 
   private loadTodo(dataObject: app.TodoData) {

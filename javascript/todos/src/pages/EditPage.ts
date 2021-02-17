@@ -16,5 +16,7 @@ export class EditPage extends Page {
     this.addComponent(header);
     this.addComponent(footer);
     this.addComponent(todoEdit);
+    
+    this.refPubSub.publish(app.enumEventMessages.PAGE_LOADED, null);
   }
 }

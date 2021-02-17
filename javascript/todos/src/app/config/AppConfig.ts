@@ -33,6 +33,7 @@ export enum enumEventMessages {
   "CHANGE_VIEW_EDIT",
   "CHANGE_VIEW_LIST",
   "CHANGE_VIEW_SETTINGS",
+  "PAGE_LOADED",
   "SAVE_APP_STATE",
   "LOAD_APP_STATE",
 }
