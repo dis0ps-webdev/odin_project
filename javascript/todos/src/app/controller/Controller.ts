@@ -53,6 +53,11 @@ export class Controller {
       app.enumEventMessages.LOAD_APP_STATE,
       this.handleLoadAppState.bind(this)
     );
+
+    this.refPubSub.subscribe(
+      app.enumEventMessages.PAGE_LOADED,
+      this.handlePageLoaded.bind(this)
+    );
   }
 
   private handleAddProject(dataObject: app.ProjectData) {
@@ -94,4 +99,11 @@ export class Controller {
 
   private handleLoadAppState() {}
   private handleSaveAppState() {}
+
+  private handlePageLoaded() {
+    this.refPubSub.publish(
+      app.enumEventMessages.UPDATE_VIEWS,
+      this.currentProject
+    );
+  }
 }

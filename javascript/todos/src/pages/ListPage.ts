@@ -16,5 +16,7 @@ export class ListPage extends Page {
     this.addComponent(header);
     this.addComponent(footer);
     this.addComponent(todoList);
+    
+    this.refPubSub.publish(app.enumEventMessages.PAGE_LOADED, null);
   }
 }
