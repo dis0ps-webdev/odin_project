@@ -1,3 +1,5 @@
+import * as app from "../config/AppConfig";
+
 type callbackMap = {
   [topic: number]: Array<(data: any) => void>;
 };
@@ -10,6 +12,9 @@ class PubSub {
   }
 
   public publish(topic: number, data: any) {
+    if (app.debug) {
+      console.log(app.enumEventMessages[topic]);
+    }
     if (this.subscriptions[topic] !== undefined) {
       this.subscriptions[topic].forEach((callback) => callback(data));
     }

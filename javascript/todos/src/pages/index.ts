@@ -1,19 +1,26 @@
 import * as layout from "../css/layout.global.scss";
 import * as typography from "../css/typography.global.scss";
-import * as config from "../app/config/AppConfig";
-import * as components from "../components/Components";
-import { PubSub } from "../app/pubsub/PubSub";
+import * as app from "../app/App";
 
 const global_layout = layout;
 const global_typography = typography;
 
-const pubsub = new PubSub();
+const pubsub = new app.PubSub();
 
-const header = new components.Header(config.containerDiv, pubsub);
-const footer = new components.Footer(config.containerDiv, pubsub);
-const todoEdit = new components.TodoEdit(config.containerDiv, pubsub);
+const controller = new app.Controller(pubsub);
+const router = new app.PageRouter(app.containerDiv, pubsub);
 
-header.render();
-footer.render();
+pubsub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
 
-todoEdit.render();
+let todo1 = app.Factory.createTodoTemplate();
+todo1.title = "Todo 1";
+todo1.description = "Todo Description";
+todo1.dueDate = new Date();
+
+let todo2 = app.Factory.createTodoTemplate();
+todo2.title = "Todo 2";
+todo2.description = "Todo Description";
+todo2.dueDate = new Date();
+
+pubsub.publish(app.enumEventMessages.ADD_TODO, todo1);
+pubsub.publish(app.enumEventMessages.ADD_TODO, todo2);
