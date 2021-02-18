@@ -18,8 +18,8 @@ class TodoList extends Component {
     this._bindHandler("click", this.handleClick.bind(this));
   }
 
-  private handleProjectUpdate(data: any) {
-    this.currentProject = <app.Project>data;
+  private handleProjectUpdate(data: app.Project) {
+    this.currentProject = data;
     this._updateOutputElement();
   }
 
@@ -28,13 +28,11 @@ class TodoList extends Component {
       const targetClick = e.target as HTMLElement;
       let clickedTodo = targetClick.closest(`.${styles["list-item"]}`);
       if (clickedTodo) {
-        let todoObject = this.currentProject.getTodoItem(clickedTodo.id);
-        if (todoObject) {
-          this.refPubSub.publish(
-            app.enumEventMessages.CHANGE_VIEW_EDIT,
-            todoObject.getData()
-          );
-        }
+        this.refPubSub.publish(
+          app.enumEventMessages.SET_CURRENT_TODO,
+          clickedTodo.id
+        );
+        this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_EDIT, null);
       }
     }
   }
@@ -53,7 +51,7 @@ class TodoList extends Component {
       <div id="${todoItem.id}" class=${styles["list-item"]}>
         <div class=${styles[priorityLevel]}></div>
         <div class=${styles["item-content"]}>
-          <span>${todoItem.name}</span>
+          <span>${todoItem.title}</span>
           <span>${todoItem.description}</span>
           <span>Due: ${dueDate}</span>
         </div>

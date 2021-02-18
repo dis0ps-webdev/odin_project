@@ -2,14 +2,17 @@ import { Model } from "./Prototype/Model";
 import * as app from "../../app/App";
 import { v4 as uuidv4 } from "uuid";
 
-export class TodoData {
+interface StringIndex {
+  [key: string]: any;
+}
+
+export class TodoData implements StringIndex {
+  [key: string] : any;
   public id: string = uuidv4();
-  public name: string = "";
-  public isDone: boolean = false;
-  public description?: string = "";
+  public title: string = "";
+  public description: string = "";
   public priority: app.enumPriorities = app.enumPriorities.Medium;
-  public notes: string = "";
-  public arrTodo: Array<Todo> = [];
+  public status: app.enumStatus = app.enumStatus.Todo;
   public dueDate: Date = new Date();
 }
 
