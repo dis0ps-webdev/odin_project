@@ -27,7 +27,6 @@ export class PageRouter {
   private loadEditPage(dataObject: app.TodoData | null) {
     let currentPage = new pages.EditPage(this.targetElement, this.refPubSub);
     currentPage.render();
-    this.refPubSub.publish(app.enumEventMessages.LOAD_TODO, dataObject);
   }
 
   private loadListPage() {
