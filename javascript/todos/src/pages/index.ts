@@ -13,12 +13,12 @@ const router = new app.PageRouter(app.containerDiv, pubsub);
 pubsub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
 
 let todo1 = app.Factory.createTodoTemplate();
-todo1.name = "Todo 1";
+todo1.title = "Todo 1";
 todo1.description = "Todo Description";
 todo1.dueDate = new Date();
 
 let todo2 = app.Factory.createTodoTemplate();
-todo2.name = "Todo 2";
+todo2.title = "Todo 2";
 todo2.description = "Todo Description";
 todo2.dueDate = new Date();
 
