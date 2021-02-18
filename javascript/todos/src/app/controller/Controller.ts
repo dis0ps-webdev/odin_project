@@ -36,6 +36,11 @@ export class Controller {
     );
 
     this.refPubSub.subscribe(
+      app.enumEventMessages.SET_CURRENT_TODO,
+      this.handleSetTodo.bind(this)
+    );
+
+    this.refPubSub.subscribe(
       app.enumEventMessages.ADD_TODO,
       this.handleAddTodo.bind(this)
     );
@@ -80,6 +85,10 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
     );
+  }
+
+  private handleSetTodo(todoId: string) {
+    this.currentProject.setCurrentTodoId(todoId);
   }
 
   private handleAddTodo(dataObject: app.TodoData) {

@@ -7,6 +7,7 @@ export class ProjectData {
   public name: string = "";
   public isDone: boolean = false;
   public arrTodo: Array<Todo> = [];
+  public currentTodo: string = "";
   public dueDate: Date = new Date();
 }
 
@@ -32,6 +33,15 @@ export class Project {
     return this.data.arrTodo.find((todo) => {
       return todo.verifyId(id);
     });
+  }
+
+  public setCurrentTodoId(id: string) {
+    this.data.currentTodo = id;
+  }
+
+  public getCurrentTodoId() {
+    return this.data.currentTodo;
+
   }
 
   public updateTodoItem(id: string, objData: TodoData) {
