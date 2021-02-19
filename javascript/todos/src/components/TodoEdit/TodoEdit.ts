@@ -1,6 +1,8 @@
 import styles from "./TodoEdit.local.scss";
 import { Component } from "../Prototype/Component";
 import * as app from "../../app/App";
+import flatpickr from "flatpickr";
+import { format, parseISO } from "date-fns";
 
 class TodoEdit extends Component {
   private refPubSub: app.PubSub;
@@ -46,6 +48,12 @@ class TodoEdit extends Component {
       }
     });
 
+    let selectedDate = formData.get("dueDate");
+    if (selectedDate) {
+      this.currentTodo.dueDate = parseISO(selectedDate,"yyy-MM-dd");
+      console.log(this.currentTodo.dueDate);
+    }
+
     if (this.isNewTodo) {
       this.refPubSub.publish(app.enumEventMessages.ADD_TODO, this.currentTodo);
     } else {
@@ -76,16 +84,25 @@ class TodoEdit extends Component {
         );
         if (todoForm) {
           Object.keys(this.currentTodo).forEach((key) => {
-            if (key !== "id") {
-              let targetElement = <HTMLFormElement>(
-                todoForm.querySelector(`#${key}`)
-              );
+            let targetElement = <HTMLFormElement>(
+              todoForm.querySelector(`#${key}`)
+            );
+            if (key !== "id" && key != "dueDate") {
               targetElement.value = this.currentTodo[key];
+            }
+            if (key == "dueDate") {
+              targetElement.value = format(this.currentTodo[key], "yyyy-MM-dd");
             }
           });
         }
       }, 50);
     }
+  }
+
+  private addFlatPickr() {
+    setTimeout(() => {
+      const datePicker = flatpickr("#dueDate", { position: "above" });
+    }, 50);
   }
 
   private generateOptionsFromEnum(targetEnum: any) {
@@ -119,11 +136,13 @@ class TodoEdit extends Component {
       ${this.generateOptionsFromEnum(app.enumPriorities)}
       </select>
       <label for="due-date">Due Date</label>
-      <input type="text" name="dueDate" id="dueDate" />
-      <button id="save-button">Save</button>
+      <input disable=true type="text" name="dueDate" id="dueDate" />
+      <button id="cancel-button">Cancel</button><button class="first-button" id="save-button">Save</button>
     </form>
     </div>
     `;
+
+    this.addFlatPickr();
   }
 }
 
