@@ -10,7 +10,6 @@ class TodoList extends Component {
   constructor(container: Element, pubsub: app.PubSub) {
     super(container);
     this.refPubSub = pubsub;
-    this.currentProject = new app.Project();
     this.refPubSub.subscribe(
       app.enumEventMessages.UPDATE_VIEWS,
       this.handleUpdateView.bind(this)
