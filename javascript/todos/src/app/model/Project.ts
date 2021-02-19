@@ -1,6 +1,8 @@
 import { Model } from "./Prototype/Model";
 import { Todo, TodoData } from "./Todo";
 import { v4 as uuidv4 } from "uuid";
+import * as app from "../App";
+import { enumStatus } from "../config/AppConfig";
 
 export class ProjectData {
   public id: string = uuidv4();
@@ -8,6 +10,7 @@ export class ProjectData {
   public isDone: boolean = false;
   public arrTodo: Array<Todo> = [];
   public currentTodo: string = "";
+  public currentStatusView: app.enumStatus = app.enumStatus.Todo;
   public dueDate: Date = new Date();
 }
 
@@ -41,7 +44,10 @@ export class Project {
 
   public getCurrentTodoId() {
     return this.data.currentTodo;
+  }
 
+  public setCurrentStatusView(status: enumStatus){
+    this.data.currentStatusView = status;
   }
 
   public updateTodoItem(id: string, objData: TodoData) {

@@ -63,6 +63,11 @@ export class Controller {
       app.enumEventMessages.PAGE_LOADED,
       this.handlePageLoaded.bind(this)
     );
+
+    this.refPubSub.subscribe(
+      app.enumEventMessages.CHANGE_LIST_FILTER,
+      this.handleFilter.bind(this)
+    );
   }
 
   private handleAddProject(dataObject: app.ProjectData) {
@@ -110,6 +115,13 @@ export class Controller {
   private handleSaveAppState() {}
 
   private handlePageLoaded() {
+    this.refPubSub.publish(
+      app.enumEventMessages.UPDATE_VIEWS,
+      this.currentProject
+    );
+  }
+  private handleFilter(data: app.enumStatus) {
+    this.currentProject.setCurrentStatusView(data);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
