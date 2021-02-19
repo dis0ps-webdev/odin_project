@@ -4,11 +4,13 @@ import * as app from "../../app/App";
 
 class Header extends Component {
   private refPubSub: app.PubSub;
+  private numInView: number;
   private currentStatusView: app.enumStatus = app.enumStatus.Todo;
 
   constructor(container: Element, pubsub: app.PubSub) {
     super(container);
     this.refPubSub = pubsub;
+    this.numInView = 0;
     this._bindHandler("click", this.handleClick.bind(this));
     this.refPubSub.subscribe(
       app.enumEventMessages.UPDATE_VIEWS,
@@ -17,7 +19,14 @@ class Header extends Component {
   }
 
   private handleUpdateView(data: app.Project) {
-    this.currentStatusView = data.getData().currentStatusView;
+    let currentProject = data;
+    this.currentStatusView = currentProject.getData().currentStatusView;
+    this.numInView = currentProject
+      .getData()
+      .arrTodo.filter(
+        (todo) => todo.getData().status == this.currentStatusView
+      ).length;
+      this._updateOutputElement();
   }
 
   private handleClick(e: Event) {
@@ -58,7 +67,9 @@ class Header extends Component {
         </div>
         <div class=${styles["list-control"]}>
           <img id="left-arrow" src="images/left_arrow.svg" alt="" srcset="" />
-          <span>${app.enumStatus[this.currentStatusView]}</span>
+          <span>${app.enumStatus[this.currentStatusView]} (${
+      this.numInView
+    })</span>
           <img id="right-arrow" src="images/right_arrow.svg" alt="" srcset="" />
         </div>
     `;
