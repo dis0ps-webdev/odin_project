@@ -13,12 +13,12 @@ class TodoList extends Component {
     this.currentProject = new app.Project();
     this.refPubSub.subscribe(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.handleProjectUpdate.bind(this)
+      this.handleUpdateView.bind(this)
     );
     this._bindHandler("click", this.handleClick.bind(this));
   }
 
-  private handleProjectUpdate(data: app.Project) {
+  private handleUpdateView(data: app.Project) {
     this.currentProject = data;
     this._updateOutputElement();
   }
@@ -37,11 +37,23 @@ class TodoList extends Component {
     }
   }
 
-  protected _updateOutputElement() {
+  private filterTodos(): app.Todo[] {
     const projectData = this.currentProject.getData();
+    const arrTodo = projectData.arrTodo;
+    const currentStatusView = projectData.currentStatusView;
+
+    return arrTodo
+      .filter((todo) => todo.getData().status == currentStatusView)
+      .sort(
+        (todo1, todo2) => todo2.getData().priority - todo1.getData().priority
+      );
+  }
+
+  protected _updateOutputElement() {
+    console.log(app.enumStatus[3]);
     this.outputElement.className = styles["list"];
     this.outputElement.innerHTML = "";
-    projectData.arrTodo.forEach((objTodo) => {
+    this.filterTodos().forEach((objTodo) => {
       const todoItem = objTodo.getData();
       const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
       const priorityLevel = `item-highlight-${
