@@ -84,8 +84,7 @@ export class Controller {
       this.currentProject
     );
   }
-  private handleChangeProject(objProject: app.Project) {
-    this.currentProject = objProject;
+  private handleChangeProject(projectId: string) {
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
