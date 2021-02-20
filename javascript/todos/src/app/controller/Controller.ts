@@ -2,23 +2,26 @@ import * as app from "../App";
 
 export class Controller {
   private refPubSub: app.PubSub;
+  private appProjectList: app.ProjectList;
   private currentProject: app.Project;
 
   constructor(pubsub: app.PubSub) {
     this.refPubSub = pubsub;
-    let projectData = app.Factory.createProjectTemplate();
-    this.currentProject = app.Factory.createProject(projectData);
     this.subscribeHandlers();
 
-    let defaultProject = this.getDefaultProject();
-    this.handleChangeProject(defaultProject);
+    if (!this.handleLoadAppState()) {
+      let projectListTemplate = app.Factory.createProjectListTemplate();
+      this.appProjectList = app.Factory.createProjectList(projectListTemplate);
+      this.setDefaultProject();
+      this.handleChangeProject("default");
+    }
   }
 
-  private getDefaultProject(): app.Project {
+  private setDefaultProject() {
     let defaultProject = app.Factory.createProjectTemplate();
+    defaultProject.id = "default";
     defaultProject.name = "Default";
-    defaultProject.dueDate = new Date();
-    return app.Factory.createProject(defaultProject);
+    this.handleAddProject(defaultProject);
   }
 
   private subscribeHandlers() {
@@ -71,11 +74,12 @@ export class Controller {
   }
 
   private handleAddProject(dataObject: app.ProjectData) {
-    this.currentProject = app.Factory.createProject(dataObject);
+    this.appProjectList.addProject(dataObject);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
     );
+    this.handleSaveAppState();
   }
   private handleUpdateProject(dataObject: app.ProjectData) {
     this.currentProject.updateData(dataObject);
@@ -83,8 +87,15 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
     );
+    this.handleSaveAppState();
   }
   private handleChangeProject(projectId: string) {
+    this.appProjectList.setCurrentProject(projectId);
+    const loadedProject = this.appProjectList.getCurrentProject();
+    if (loadedProject) {
+      this.currentProject = loadedProject;
+    }
+
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
@@ -101,6 +112,7 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
     );
+    this.handleSaveAppState();
   }
   private handleUpdateTodo(dataObject: app.TodoData) {
     this.currentProject.updateTodoItem(dataObject.id, dataObject);
@@ -108,10 +120,52 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.currentProject
     );
+    this.handleSaveAppState();
   }
 
-  private handleLoadAppState() {}
-  private handleSaveAppState() {}
+  private reviveAppObjects(data: any) {
+    const projectListTemplate = app.Factory.createProjectListTemplate();
+    this.appProjectList = app.Factory.createProjectList(projectListTemplate);
+
+    const appData = JSON.parse(data);
+
+    appData.arrProjects.forEach((project: any) => {
+      //Store our todo array for object revival, and clear it to avoid duplicates
+      let arrTodo = project.data.arrTodo;
+      project.data.arrTodo = [];
+
+      let revivedProject = app.Factory.createProject(project.data);
+
+      //Revive the todos within the project
+      arrTodo.forEach((todo: any) => {
+        revivedProject.addTodoItem(todo.data);
+      });
+
+      this.appProjectList.addProject(revivedProject.getData());
+    });
+
+    this.appProjectList.setCurrentProject(appData.currentProject);
+  }
+
+  private handleLoadAppState() {
+    const jsonObject = localStorage.getItem("cando-kanban-save");
+
+    if (jsonObject !== null) {
+      this.reviveAppObjects(jsonObject);
+
+      let loadedProject = this.appProjectList.getCurrentProject();
+      if (loadedProject) {
+        this.currentProject = loadedProject;
+      }
+      return true;
+    } else {
+      return false;
+    }
+  }
+  private handleSaveAppState() {
+    const jsonObject = JSON.stringify(this.appProjectList.getData());
+    localStorage.setItem("cando-kanban-save", jsonObject);
+  }
 
   private handlePageLoaded() {
     this.refPubSub.publish(
