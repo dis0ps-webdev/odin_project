@@ -6,6 +6,7 @@ import { format, parseISO } from "date-fns";
 
 class TodoEdit extends Component {
   private refPubSub: app.PubSub;
+  private currentProject: app.Project;
   private currentTodo: app.TodoData;
   private isNewTodo: boolean;
 
@@ -67,10 +68,13 @@ class TodoEdit extends Component {
     this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
   }
 
-  private loadTodo(data: app.Project) {
-    const currentProject = data;
-    const targetTodoId = currentProject.getCurrentTodoId();
-    const todoData = currentProject.getTodoItem(targetTodoId)?.getData();
+  private loadTodo(data: app.ProjectList) {
+    const loadedProject = data.getCurrentProject();
+    if (loadedProject) {
+      this.currentProject = loadedProject;
+    }
+    const targetTodoId = this.currentProject.getCurrentTodoId();
+    const todoData = this.currentProject.getTodoItem(targetTodoId)?.getData();
 
     //Clear current todo after loading it
 

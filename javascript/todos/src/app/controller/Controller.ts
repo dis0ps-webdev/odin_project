@@ -77,7 +77,7 @@ export class Controller {
     this.appProjectList.addProject(dataObject);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
     this.handleSaveAppState();
   }
@@ -85,7 +85,7 @@ export class Controller {
     this.currentProject.updateData(dataObject);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
     this.handleSaveAppState();
   }
@@ -98,7 +98,7 @@ export class Controller {
 
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
   }
 
@@ -110,7 +110,7 @@ export class Controller {
     this.currentProject.addTodoItem(dataObject);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
     this.handleSaveAppState();
   }
@@ -118,7 +118,7 @@ export class Controller {
     this.currentProject.updateTodoItem(dataObject.id, dataObject);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
     this.handleSaveAppState();
   }
@@ -170,14 +170,14 @@ export class Controller {
   private handlePageLoaded() {
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
   }
   private handleFilter(data: app.enumStatus) {
-    this.currentProject.setCurrentStatusView(data);
+    this.appProjectList.setCurrentStatusView(data);
     this.refPubSub.publish(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.currentProject
+      this.appProjectList
     );
   }
 }

@@ -18,15 +18,17 @@ class Header extends Component {
     );
   }
 
-  private handleUpdateView(data: app.Project) {
-    let currentProject = data;
-    this.currentStatusView = currentProject.getData().currentStatusView;
-    this.numInView = currentProject
-      .getData()
-      .arrTodo.filter(
-        (todo) => todo.getData().status == this.currentStatusView
-      ).length;
-      this._updateOutputElement();
+  private handleUpdateView(data: app.ProjectList) {
+    let currentProject = data.getCurrentProject();
+    this.currentStatusView = data.getCurrentStatusView();
+    if (currentProject) {
+      this.numInView = currentProject
+        .getData()
+        .arrTodo.filter(
+          (todo) => todo.getData().status == this.currentStatusView
+        ).length;
+    }
+    this._updateOutputElement();
   }
 
   private handleClick(e: Event) {

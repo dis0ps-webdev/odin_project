@@ -7,6 +7,7 @@ export class ProjectListData {
 
 export class ProjectList {
   private data: ProjectListData = new ProjectListData();
+  private currentStatusView: app.enumStatus = app.enumStatus.Todo;
 
   constructor(objData?: ProjectListData) {
     if (objData) {
@@ -31,6 +32,14 @@ export class ProjectList {
   public addProject(objData: app.ProjectData) {
     const newProject = new app.Project(objData);
     this.data.arrProjects.push(newProject);
+  }
+
+  public setCurrentStatusView(status: app.enumStatus) {
+    this.currentStatusView = status;
+  }
+
+  public getCurrentStatusView() {
+    return this.currentStatusView;
   }
 
   public removeProject() {}

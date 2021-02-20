@@ -18,9 +18,12 @@ class Footer extends Component {
     this._bindHandler("change", this.handleChange.bind(this));
   }
 
-  private handleUpdateView(data: app.Project) {
-    this.currentProject = data;
-    this.numTodos = data.getData().arrTodo.length;
+  private handleUpdateView(data: app.ProjectList) {
+    let loadedProject = data.getCurrentProject();
+    if (loadedProject) {
+      this.currentProject = loadedProject;
+      this.numTodos = this.currentProject.getData().arrTodo.length;
+    }
     this._updateOutputElement();
   }
 
