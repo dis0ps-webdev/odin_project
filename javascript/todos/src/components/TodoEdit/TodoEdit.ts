@@ -30,6 +30,8 @@ class TodoEdit extends Component {
         case "save-button":
           this.saveTodo();
           break;
+        case "cancel-button":
+          this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
       }
     }
   }
@@ -50,8 +52,7 @@ class TodoEdit extends Component {
 
     let selectedDate = formData.get("dueDate");
     if (selectedDate) {
-      this.currentTodo.dueDate = parseISO(selectedDate,"yyy-MM-dd");
-      console.log(this.currentTodo.dueDate);
+      this.currentTodo.dueDate = parseISO(selectedDate.toString());
     }
 
     if (this.isNewTodo) {
