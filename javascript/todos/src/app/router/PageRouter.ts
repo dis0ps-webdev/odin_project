@@ -22,6 +22,11 @@ export class PageRouter {
       app.enumEventMessages.CHANGE_VIEW_LIST,
       this.loadListPage.bind(this)
     );
+
+    this.refPubSub.subscribe(
+      app.enumEventMessages.CHANGE_VIEW_SETTINGS,
+      this.loadSettingsPage.bind(this)
+    );
   }
 
   private loadEditPage(dataObject: app.TodoData | null) {
@@ -31,6 +36,11 @@ export class PageRouter {
 
   private loadListPage() {
     let currentPage = new pages.ListPage(this.targetElement, this.refPubSub);
+    currentPage.render();
+  }
+
+  private loadSettingsPage() {
+    let currentPage = new pages.SettingsPage(this.targetElement, this.refPubSub);
     currentPage.render();
   }
 }

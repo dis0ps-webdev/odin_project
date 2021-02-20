@@ -6,6 +6,7 @@ import { format } from "date-fns";
 class TodoList extends Component {
   private refPubSub: app.PubSub;
   private currentProject: app.Project;
+  private currentStatusView: app.enumStatus;
 
   constructor(container: Element, pubsub: app.PubSub) {
     super(container);
@@ -17,8 +18,12 @@ class TodoList extends Component {
     this._bindHandler("click", this.handleClick.bind(this));
   }
 
-  private handleUpdateView(data: app.Project) {
-    this.currentProject = data;
+  private handleUpdateView(data: app.ProjectList) {
+    let loadedProject = data.getCurrentProject();
+    this.currentStatusView = data.getCurrentStatusView();
+    if (loadedProject) {
+      this.currentProject = loadedProject;
+    }
     this._updateOutputElement();
   }
 
@@ -39,7 +44,7 @@ class TodoList extends Component {
   private filterTodos(): app.Todo[] {
     const projectData = this.currentProject.getData();
     const arrTodo = projectData.arrTodo;
-    const currentStatusView = projectData.currentStatusView;
+    const currentStatusView = this.currentStatusView;
 
     return arrTodo
       .filter((todo) => todo.getData().status == currentStatusView)
