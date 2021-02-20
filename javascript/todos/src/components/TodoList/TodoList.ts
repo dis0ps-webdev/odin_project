@@ -49,16 +49,19 @@ class TodoList extends Component {
   }
 
   protected _updateOutputElement() {
-    console.log(app.enumStatus[3]);
     this.outputElement.className = styles["list"];
     this.outputElement.innerHTML = "";
-    this.filterTodos().forEach((objTodo) => {
-      const todoItem = objTodo.getData();
-      const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
-      const priorityLevel = `item-highlight-${
-        app.enumPriorities[todoItem.priority]
-      }`.toLowerCase();
-      this.outputElement.innerHTML += `
+    if (this.filterTodos().length == 0) {
+      this.outputElement.innerHTML = `
+      <div class="${styles["center-text"]}">No todos in this view.</div>`;
+    } else {
+      this.filterTodos().forEach((objTodo) => {
+        const todoItem = objTodo.getData();
+        const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
+        const priorityLevel = `item-highlight-${
+          app.enumPriorities[todoItem.priority]
+        }`.toLowerCase();
+        this.outputElement.innerHTML += `
       <div id="${todoItem.id}" class=${styles["list-item"]}>
         <div class=${styles[priorityLevel]}></div>
         <div class=${styles["item-content"]}>
@@ -68,7 +71,8 @@ class TodoList extends Component {
         </div>
       </div>
     `;
-    });
+      });
+    }
   }
 }
 
