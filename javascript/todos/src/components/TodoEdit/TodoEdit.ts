@@ -32,6 +32,7 @@ class TodoEdit extends Component {
           this.saveTodo();
           break;
         case "cancel-button":
+          this.refPubSub.publish(app.enumEventMessages.SET_CURRENT_TODO, "");
           this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
       }
     }
@@ -142,7 +143,7 @@ class TodoEdit extends Component {
       </select>
       <label for="due-date">Due Date</label>
       <input disable=true type="text" name="dueDate" id="dueDate" />
-      <button id="cancel-button">Cancel</button><button class="first-button" id="save-button">Save</button>
+      <button type="button" id="cancel-button">Cancel</button><button type="button" id="save-button">Save</button>
     </form>
     </div>
     `;
