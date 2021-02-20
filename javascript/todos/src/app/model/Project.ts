@@ -14,7 +14,6 @@ export class Project {
   constructor(objData?: ProjectData) {
     if (objData !== undefined) {
       this.updateData(objData);
-      this.data.currentTodo = "";
     }
   }
 
