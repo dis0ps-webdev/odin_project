@@ -5,6 +5,7 @@ import * as app from "../../app/App";
 class Footer extends Component {
   private refPubSub: app.PubSub;
   private currentProject: app.Project;
+  private currentProjectList: app.ProjectList;
   private numTodos: number = 0;
 
   constructor(container: Element, pubsub: app.PubSub) {
@@ -19,6 +20,7 @@ class Footer extends Component {
   }
 
   private handleUpdateView(data: app.ProjectList) {
+    this.currentProjectList = data;
     let loadedProject = data.getCurrentProject();
     if (loadedProject) {
       this.currentProject = loadedProject;
@@ -46,11 +48,26 @@ class Footer extends Component {
 
   private handleChange(e: Event) {
     const targetSelect = e.target as HTMLInputElement;
-    console.log(`Change: ${targetSelect.value}`);
     this.refPubSub.publish(
       app.enumEventMessages.CHANGE_PROJECT,
       targetSelect.value
     );
+  }
+
+  private generateOptionsFromProjects() {
+    let projectSelectHTML: string = "";
+
+    this.currentProjectList.getData().arrProjects.forEach((project) => {
+      let htmlDecorator = "";
+      if (project.getData().id == this.currentProject.getData().id) {
+        htmlDecorator = "selected";
+      }
+      projectSelectHTML += `<option ${htmlDecorator} value="${
+        project.getData().id
+      }">${project.getData().name}</option>`;
+    });
+
+    return projectSelectHTML;
   }
 
   protected _updateOutputElement() {
@@ -63,9 +80,7 @@ class Footer extends Component {
 
     <div class=${styles["bottom-footer"]}>
       <select id="project-select" name="project" id="project-select">
-        <option value="Default">Default</option>
-        <option value="Project_1">Project 1</option>
-        <option value="Project_2">Project 2</option>
+      ${this.generateOptionsFromProjects()}
       </select>
       <img id="settings-button" src="images/settings_icon.svg" alt="Settings" srcset="" />
     </div>
