@@ -6,20 +6,24 @@ import { format } from "date-fns";
 class TodoList extends Component {
   private refPubSub: app.PubSub;
   private currentProject: app.Project;
+  private currentStatusView: app.enumStatus;
 
   constructor(container: Element, pubsub: app.PubSub) {
     super(container);
     this.refPubSub = pubsub;
-    this.currentProject = new app.Project();
     this.refPubSub.subscribe(
       app.enumEventMessages.UPDATE_VIEWS,
-      this.handleProjectUpdate.bind(this)
+      this.handleUpdateView.bind(this)
     );
     this._bindHandler("click", this.handleClick.bind(this));
   }
 
-  private handleProjectUpdate(data: app.Project) {
-    this.currentProject = data;
+  private handleUpdateView(data: app.ProjectList) {
+    let loadedProject = data.getCurrentProject();
+    this.currentStatusView = data.getCurrentStatusView();
+    if (loadedProject) {
+      this.currentProject = loadedProject;
+    }
     this._updateOutputElement();
   }
 
@@ -37,17 +41,32 @@ class TodoList extends Component {
     }
   }
 
-  protected _updateOutputElement() {
+  private filterTodos(): app.Todo[] {
     const projectData = this.currentProject.getData();
+    const arrTodo = projectData.arrTodo;
+    const currentStatusView = this.currentStatusView;
+
+    return arrTodo
+      .filter((todo) => todo.getData().status == currentStatusView)
+      .sort(
+        (todo1, todo2) => todo2.getData().priority - todo1.getData().priority
+      );
+  }
+
+  protected _updateOutputElement() {
     this.outputElement.className = styles["list"];
     this.outputElement.innerHTML = "";
-    projectData.arrTodo.forEach((objTodo) => {
-      const todoItem = objTodo.getData();
-      const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
-      const priorityLevel = `item-highlight-${
-        app.enumPriorities[todoItem.priority]
-      }`.toLowerCase();
-      this.outputElement.innerHTML += `
+    if (this.filterTodos().length == 0) {
+      this.outputElement.innerHTML = `
+      <div class="${styles["center-text"]}">No todos in this view.</div>`;
+    } else {
+      this.filterTodos().forEach((objTodo) => {
+        const todoItem = objTodo.getData();
+        const dueDate = format(todoItem.dueDate, "MMMM do, yyyy");
+        const priorityLevel = `item-highlight-${
+          app.enumPriorities[todoItem.priority]
+        }`.toLowerCase();
+        this.outputElement.innerHTML += `
       <div id="${todoItem.id}" class=${styles["list-item"]}>
         <div class=${styles[priorityLevel]}></div>
         <div class=${styles["item-content"]}>
@@ -57,7 +76,8 @@ class TodoList extends Component {
         </div>
       </div>
     `;
-    });
+      });
+    }
   }
 }
 

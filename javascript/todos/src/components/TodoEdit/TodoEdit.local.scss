@@ -19,7 +19,7 @@
     justify-content: left;
 
     label {
-      font-size: 1.2em;
+      font-size: 1.1em;
       font-weight: bolder;
       margin-bottom: 5px;
     }
@@ -32,7 +32,7 @@
       -moz-appearance: none;
 
       font-family: "Lato", sans-serif;
-      font-size: 1.2em;
+      font-size: 1em;
 
       padding: 5px;
       margin-bottom: 5px;
@@ -55,9 +55,12 @@
     }
 
     button {
+      width: 50%;
       background-color: #584cb5;
       color: #fff;
       margin-top: 10px;
+      border: solid white 5px;
+      cursor: pointer;
     }
   }
 }

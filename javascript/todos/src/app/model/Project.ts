@@ -1,14 +1,11 @@
-import { Model } from "./Prototype/Model";
 import { Todo, TodoData } from "./Todo";
 import { v4 as uuidv4 } from "uuid";
 
 export class ProjectData {
   public id: string = uuidv4();
   public name: string = "";
-  public isDone: boolean = false;
   public arrTodo: Array<Todo> = [];
   public currentTodo: string = "";
-  public dueDate: Date = new Date();
 }
 
 export class Project {
@@ -22,6 +19,10 @@ export class Project {
 
   public getData(): ProjectData {
     return this.data;
+  }
+
+  public verifyId(id: string): boolean {
+    return this.data.id == id ? true : false;
   }
 
   public addTodoItem(dataObject: TodoData) {
@@ -41,7 +42,6 @@ export class Project {
 
   public getCurrentTodoId() {
     return this.data.currentTodo;
-
   }
 
   public updateTodoItem(id: string, objData: TodoData) {

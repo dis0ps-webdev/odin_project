@@ -1,9 +1,12 @@
 import styles from "./TodoEdit.local.scss";
 import { Component } from "../Prototype/Component";
 import * as app from "../../app/App";
+import flatpickr from "flatpickr";
+import { format, parseISO } from "date-fns";
 
 class TodoEdit extends Component {
   private refPubSub: app.PubSub;
+  private currentProject: app.Project;
   private currentTodo: app.TodoData;
   private isNewTodo: boolean;
 
@@ -28,6 +31,9 @@ class TodoEdit extends Component {
         case "save-button":
           this.saveTodo();
           break;
+        case "cancel-button":
+          this.refPubSub.publish(app.enumEventMessages.SET_CURRENT_TODO, "");
+          this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
       }
     }
   }
@@ -46,6 +52,11 @@ class TodoEdit extends Component {
       }
     });
 
+    let selectedDate = formData.get("dueDate");
+    if (selectedDate) {
+      this.currentTodo.dueDate = parseISO(selectedDate.toString());
+    }
+
     if (this.isNewTodo) {
       this.refPubSub.publish(app.enumEventMessages.ADD_TODO, this.currentTodo);
     } else {
@@ -58,10 +69,13 @@ class TodoEdit extends Component {
     this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
   }
 
-  private loadTodo(data: app.Project) {
-    const currentProject = data;
-    const targetTodoId = currentProject.getCurrentTodoId();
-    const todoData = currentProject.getTodoItem(targetTodoId)?.getData();
+  private loadTodo(data: app.ProjectList) {
+    const loadedProject = data.getCurrentProject();
+    if (loadedProject) {
+      this.currentProject = loadedProject;
+    }
+    const targetTodoId = this.currentProject.getCurrentTodoId();
+    const todoData = this.currentProject.getTodoItem(targetTodoId)?.getData();
 
     //Clear current todo after loading it
 
@@ -76,16 +90,25 @@ class TodoEdit extends Component {
         );
         if (todoForm) {
           Object.keys(this.currentTodo).forEach((key) => {
-            if (key !== "id") {
-              let targetElement = <HTMLFormElement>(
-                todoForm.querySelector(`#${key}`)
-              );
+            let targetElement = <HTMLFormElement>(
+              todoForm.querySelector(`#${key}`)
+            );
+            if (key !== "id" && key != "dueDate") {
               targetElement.value = this.currentTodo[key];
+            }
+            if (key == "dueDate") {
+              targetElement.value = format(this.currentTodo[key], "yyyy-MM-dd");
             }
           });
         }
       }, 50);
     }
+  }
+
+  private addFlatPickr() {
+    setTimeout(() => {
+      const datePicker = flatpickr("#dueDate", { position: "above" });
+    }, 50);
   }
 
   private generateOptionsFromEnum(targetEnum: any) {
@@ -119,11 +142,13 @@ class TodoEdit extends Component {
       ${this.generateOptionsFromEnum(app.enumPriorities)}
       </select>
       <label for="due-date">Due Date</label>
-      <input type="text" name="dueDate" id="dueDate" />
-      <button id="save-button">Save</button>
+      <input disable=true type="text" name="dueDate" id="dueDate" />
+      <button type="button" id="cancel-button">Cancel</button><button type="button" id="save-button">Save</button>
     </form>
     </div>
     `;
+
+    this.addFlatPickr();
   }
 }
 

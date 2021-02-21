@@ -1,4 +1,3 @@
-import { Model } from "./Prototype/Model";
 import * as app from "../../app/App";
 import { v4 as uuidv4 } from "uuid";
 
@@ -7,7 +6,7 @@ interface StringIndex {
 }
 
 export class TodoData implements StringIndex {
-  [key: string] : any;
+  [key: string]: any;
   public id: string = uuidv4();
   public title: string = "";
   public description: string = "";
@@ -25,7 +24,7 @@ class Todo {
     }
   }
 
-  verifyId(id: string) {
+  public verifyId(id: string) {
     return this.data.id == id ? true : false;
   }
 
@@ -34,6 +33,9 @@ class Todo {
   }
 
   public updateData(objData: TodoData) {
+    if (typeof objData.dueDate == "string") {
+      objData.dueDate = new Date(objData.dueDate);
+    }
     Object.assign(this.data, objData);
   }
 }
