@@ -12,4 +12,7 @@ const pubsub = new app.PubSub();
 const controller = new app.Controller(pubsub);
 const router = new app.PageRouter(app.containerDiv, pubsub);
 
+let test = app.Factory.createProjectTemplate();
+test.name = "Testing";
+//pubsub.publish(app.enumEventMessages.ADD_PROJECT, test);
 pubsub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
