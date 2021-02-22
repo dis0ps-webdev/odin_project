@@ -9,7 +9,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 80%;
 
   .edit-task-content {
     flex: 1;
@@ -26,7 +26,8 @@
 
     input[type="text"],
     select,
-    button {
+    button,
+    textarea {
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
@@ -40,6 +41,7 @@
       width: 100%;
       display: inline-block;
       box-sizing: border-box;
+      resize: none;
       outline: none;
       border: 1px solid rgba(112, 112, 112, 1);
     }
@@ -47,20 +49,31 @@
     select {
       height: 40px;
       background-image: url("../../images/down_arrow.svg");
-      background-color: #8d4cb5;
-      color: #fff;
+      /*background-color: #8d4cb5;
+      color: #fff;*/
       background-size: 30px 30px;
       background-position: 98% top;
       background-repeat: no-repeat;
     }
 
+    .button-box {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+    }
+
     button {
-      width: 50%;
-      background-color: #584cb5;
+      flex: 0 1 50%;
       color: #fff;
       margin-top: 10px;
-      border: solid white 5px;
-      cursor: pointer;
+    }
+    button:first-of-type {
+      margin-right: 5px;
+      background-color: #584cb5;
+    }
+    button:last-of-type {
+      margin-left: 5px;
+      background-color: #8d4cb5;
     }
   }
 }
