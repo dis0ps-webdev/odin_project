@@ -20,7 +20,6 @@ class Settings extends Component {
   private handleUpdateView(data: app.ProjectList) {
     const loadedProject = data.getCurrentProject();
     if (loadedProject) {
-      console.log(loadedProject);
       this.currentProject = loadedProject;
     }
   }
@@ -92,9 +91,10 @@ class Settings extends Component {
       <input type="text" name="title" id="title" placeholder="Project Name"/>
       <button type="button" id="add-button">Add Project</button>
 
-      <label for="title">Remove Project</label>
-      <input type="text" name="confirm-delete" id="confirm-delete" placeholder="Type DELETE to confirm, cannot delete Default project"/>
+      <label for="title">Remove Project (<span class=${styles["warning"]}>Cannot Delete Default Project</span>)</label>
+      <input type="text" name="confirm-delete" id="confirm-delete" placeholder="Type DELETE to confirm"/>
       <button type="button" id="delete-button">Delete Current</button>
+
 
       <button type="button" id="cancel-button">Cancel</button>
 
