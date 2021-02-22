@@ -1,3 +1,4 @@
+import { areIntervalsOverlappingWithOptions } from "date-fns/fp";
 import * as app from "../App";
 
 export class ProjectListData {
@@ -42,5 +43,11 @@ export class ProjectList {
     return this.currentStatusView;
   }
 
-  public removeProject() {}
+  public removeProject(projectId: string) {
+    this.data.arrProjects = this.data.arrProjects.filter(
+      (project) => project.getData().id !== projectId
+    );
+    const defaultProjectId = this.data.arrProjects[0].getData().id;
+    this.setCurrentProject(defaultProjectId);
+  }
 }

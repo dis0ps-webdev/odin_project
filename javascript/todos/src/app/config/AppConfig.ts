@@ -29,6 +29,7 @@ export enum enumEventMessages {
   "ADD_TODO",
   "UPDATE_PROJECT",
   "UPDATE_TODO",
+  "DELETE_PROJECT",
   "CHANGE_LIST_FILTER",
   "CHANGE_VIEW_EDIT",
   "CHANGE_VIEW_LIST",
