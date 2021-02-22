@@ -39,6 +39,11 @@ export class Controller {
     );
 
     this.refPubSub.subscribe(
+      app.enumEventMessages.DELETE_PROJECT,
+      this.handleDeleteProject.bind(this)
+    );
+
+    this.refPubSub.subscribe(
       app.enumEventMessages.SET_CURRENT_TODO,
       this.handleSetTodo.bind(this)
     );
@@ -79,7 +84,7 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.appProjectList
     );
-    this.handleSaveAppState();
+    this.refPubSub.publish(app.enumEventMessages.SAVE_APP_STATE, null);
   }
   private handleUpdateProject(dataObject: app.ProjectData) {
     this.currentProject.updateData(dataObject);
@@ -87,7 +92,11 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.appProjectList
     );
-    this.handleSaveAppState();
+    this.refPubSub.publish(app.enumEventMessages.SAVE_APP_STATE, null);
+  }
+  private handleDeleteProject(projectId: string) {
+    this.appProjectList.removeProject(projectId);
+    this.refPubSub.publish(app.enumEventMessages.SAVE_APP_STATE, null);
   }
   private handleChangeProject(projectId: string) {
     this.appProjectList.setCurrentProject(projectId);
@@ -112,7 +121,7 @@ export class Controller {
       app.enumEventMessages.UPDATE_VIEWS,
       this.appProjectList
     );
-    this.handleSaveAppState();
+    this.refPubSub.publish(app.enumEventMessages.SAVE_APP_STATE, null);
   }
   private handleUpdateTodo(dataObject: app.TodoData) {
     this.currentProject.updateTodoItem(dataObject.id, dataObject);
