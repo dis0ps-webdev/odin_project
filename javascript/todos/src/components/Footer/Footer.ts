@@ -59,12 +59,15 @@ class Footer extends Component {
 
     this.currentProjectList.getData().arrProjects.forEach((project) => {
       let htmlDecorator = "";
-      if (project.getData().id == this.currentProject.getData().id) {
-        htmlDecorator = "selected";
+      const currentProjectId = this.currentProject.getData().id;
+      if (currentProjectId) {
+        if (project.getData().id == this.currentProject.getData().id) {
+          htmlDecorator = "selected";
+        }
+        projectSelectHTML += `<option ${htmlDecorator} value="${
+          project.getData().id
+        }">${project.getData().name}</option>`;
       }
-      projectSelectHTML += `<option ${htmlDecorator} value="${
-        project.getData().id
-      }">${project.getData().name}</option>`;
     });
 
     return projectSelectHTML;
