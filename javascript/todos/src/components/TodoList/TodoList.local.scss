@@ -10,9 +10,9 @@
   margin: 15px;
   width: 100%;
 
-  .center-text{
-    padding-top: 200px;
-    font-size: 1.2em;
+  .center-text {
+    padding-top: 150px;
+    font-size: 1.1em;
   }
 
   .list-item {
@@ -42,18 +42,20 @@
 
   .item-content {
     flex: 1;
+    overflow: hidden;
+    overflow-wrap: break-word;
     margin: 5px;
     padding: 5px;
 
     span:first-child {
       display: block;
-      font-size: 1.5em;
+      font-size: 1.1em;
       font-weight: bold;
     }
 
     span:nth-child(2) {
       display: block;
-      font-size: 1em;
+      font-size: 0.9em;
       font-family: "Lato", sans-serif;
       padding-top: 10px;
     }
@@ -61,7 +63,8 @@
     span:last-child {
       float: right;
       display: block;
-      font-size: 1em;
+
+      font-size: 0.9em;
       font-weight: bold;
       padding-top: 10px;
       font-family: "Lato", sans-serif;

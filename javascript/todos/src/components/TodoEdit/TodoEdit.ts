@@ -58,14 +58,15 @@ class TodoEdit extends Component {
     }
 
     if (this.isNewTodo) {
+      this.refPubSub.publish(app.enumEventMessages.SET_CURRENT_TODO, null);
       this.refPubSub.publish(app.enumEventMessages.ADD_TODO, this.currentTodo);
     } else {
+      this.refPubSub.publish(app.enumEventMessages.SET_CURRENT_TODO, null);
       this.refPubSub.publish(
         app.enumEventMessages.UPDATE_TODO,
         this.currentTodo
       );
     }
-    this.refPubSub.publish(app.enumEventMessages.SET_CURRENT_TODO, "");
     this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
   }
 
@@ -130,9 +131,9 @@ class TodoEdit extends Component {
     <div class=${styles["edit-task-content"]}>
     <form id="todo-form" name="todo-form">
       <label for="title">Title</label>
-      <input type="text" name="title" id="title" />
+      <input type="text" name="title" id="title" maxlength="80" />
       <label for="Description">Description</label>
-      <input type="text" name="description" id="description" />
+      <textarea id="description" name="description" rows="5" maxlength="500"></textarea>
       <label for="Status">Status</label>
       <select name="status" id="status">
       ${this.generateOptionsFromEnum(app.enumStatus)}
@@ -143,7 +144,10 @@ class TodoEdit extends Component {
       </select>
       <label for="due-date">Due Date</label>
       <input disable=true type="text" name="dueDate" id="dueDate" />
-      <button type="button" id="cancel-button">Cancel</button><button type="button" id="save-button">Save</button>
+      <div class=${styles["button-box"]}>
+      <button type="button" id="save-button">Save</button>
+      <button type="button" id="cancel-button">Cancel</button>
+      </div>
     </form>
     </div>
     `;
