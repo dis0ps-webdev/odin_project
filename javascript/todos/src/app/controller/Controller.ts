@@ -13,7 +13,6 @@ export class Controller {
       let projectListTemplate = app.Factory.createProjectListTemplate();
       this.appProjectList = app.Factory.createProjectList(projectListTemplate);
       this.setDefaultProject();
-      this.handleChangeProject("default");
     }
   }
 
@@ -21,7 +20,11 @@ export class Controller {
     let defaultProject = app.Factory.createProjectTemplate();
     defaultProject.id = "default";
     defaultProject.name = "Default";
-    this.handleAddProject(defaultProject);
+    this.refPubSub.publish(app.enumEventMessages.ADD_PROJECT, defaultProject);
+    this.refPubSub.publish(
+      app.enumEventMessages.CHANGE_PROJECT,
+      defaultProject.id
+    );
   }
 
   private subscribeHandlers() {
@@ -103,6 +106,7 @@ export class Controller {
     const loadedProject = this.appProjectList.getCurrentProject();
     if (loadedProject) {
       this.currentProject = loadedProject;
+      this.refPubSub.publish(app.enumEventMessages.SAVE_APP_STATE, null);
     }
 
     this.refPubSub.publish(
@@ -152,8 +156,11 @@ export class Controller {
 
       this.appProjectList.addProject(revivedProject.getData());
     });
-
-    this.appProjectList.setCurrentProject(appData.currentProject);
+    if (appData.currentProject) {
+      this.appProjectList.setCurrentProject(appData.currentProject);
+    } else {
+      this.appProjectList.setCurrentProject("default");
+    }
   }
 
   private handleLoadAppState() {

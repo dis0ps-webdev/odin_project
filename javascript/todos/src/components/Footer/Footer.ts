@@ -59,8 +59,8 @@ class Footer extends Component {
 
     this.currentProjectList.getData().arrProjects.forEach((project) => {
       let htmlDecorator = "";
-      const currentProjectId = this.currentProject.getData().id;
-      if (currentProjectId) {
+      if (this.currentProject) {
+        const currentProjectId = this.currentProject.getData().id;
         if (project.getData().id == this.currentProject.getData().id) {
           htmlDecorator = "selected";
         }
