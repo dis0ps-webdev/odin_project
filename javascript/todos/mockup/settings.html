@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <title>Can-Do Kanban</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="header">
+        <div class="logo">
+          <img src="images/clipboard_icon.svg" alt="Todo List" srcset="" />
+          <span>Can-Do Kanban</span>
+        </div>
+        <div class="list-control">
+          <img src="images/left_arrow.svg" alt="" srcset="" />
+          <span>Todo</span>
+          <img src="images/right_arrow.svg" alt="" srcset="" />
+        </div>
+      </div>
+
+      <div class="settings">
+        <h1>Settings</h1>
+          <label for="title">Add Project</label>
+          <input type="text" name="title" id="title" placeholder="Project Name"/>
+        <button type="button">Add Project</button>
+        <label for="title">Remove Project</label>
+          <input type="text" name="confirm-delete" id="confirm-delete" placeholder="Type DELETE to confirm"/>
+        <button type="button">Delete Current</button>
+      </div>
+
+      <div class="footer">
+        <div class="top-footer">
+          <span>Todo Items: 3</span>
+          <img src="images/add_item_icon.svg" alt="Add Item" srcset="" />
+        </div>
+
+        <div class="bottom-footer">
+          <select name="project" id="project-select">
+            <option value="Default">Default</option>
+            <option value="Project_1">Project 1</option>
+            <option value="Project_2">Project 2</option>
+          </select>
+          <img src="images/settings_icon.svg" alt="Settings" srcset="" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
