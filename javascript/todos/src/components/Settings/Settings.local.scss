@@ -1,0 +1,65 @@
+.settings {
+  flex: 1;
+  width: 80%;
+  padding: 0px;
+  padding-top: 130px;
+  padding-bottom: 100px;
+  margin: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  h1 {
+    font-size: 1.5em;
+    text-decoration: underline;
+    font-weight: bold;
+  }
+
+  label {
+    font-size: 1.1em;
+    font-weight: bolder;
+    margin-bottom: 5px;
+    width: 100%;
+  }
+
+  label:last-of-type {
+    padding-top: 50px;
+  }
+
+  input[type="text"],
+  button {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    font-family: "Lato", sans-serif;
+    font-size: 1em;
+
+    padding: 5px;
+    margin-bottom: 5px;
+
+    width: 100%;
+    display: inline-block;
+    box-sizing: border-box;
+    outline: none;
+    border: 1px solid rgba(112, 112, 112, 1);
+  }
+
+  button {
+    cursor: pointer;
+    background-color: #584cb5;
+    color: #fff;
+  }
+
+  button:last-of-type {
+    margin-top: 60px;
+    background-color: #8d4cb5;
+  }
+
+  .warning {
+    color: #8d4cb5;
+    font-weight: bolder;
+  }
+}

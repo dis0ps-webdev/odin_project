@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/main.css" />
+    <title>Can-Do Kanban</title>
+  </head>
+  <body>
+    <div id="container">
+      <div class="header">
+        <div class="logo">
+          <img src="images/clipboard_icon.svg" alt="Todo List" srcset="" />
+          <span>Can-Do Kanban</span>
+        </div>
+        <div class="list-control">
+          <img src="images/left_arrow.svg" alt="" srcset="" />
+          <span>Todo</span>
+          <img src="images/right_arrow.svg" alt="" srcset="" />
+        </div>
+      </div>
+
+      <div class="list" style="display: none;">
+        <div class="list-item">
+          <div class="item-highlight-high"></div>
+          <div class="item-content">
+            <span>Take out garbage</span>
+            <span>test</span>
+            <span>Due: 01/03/2021</span>
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <div style="display: flex" class="edit-task">
+        <div class="edit-task-content">
+          <label for="title">Title</label>
+          <input type="text" name="title" id="title" />
+          <label for="Description">Description</label>
+          <textarea id="description" name="description" rows="5"></textarea>
+          <label for="Status">Status</label>
+          <select name="status" id="status-select">
+            <option value="Todo">Todo</option>
+            <option value="Todo">In-Progress</option>
+            <option value="Todo">Done</option>
+          </select>
+          <label for="Priority">Priority</label>
+          <select name="priority" id="priority-select">
+            <option value="High">High</option>
+          </select>
+          <label for="due-date">Due Date</label>
+          <input type="text" name="due-date" id="due-date" />
+          <div class="button-box">
+          <button type="button">Save</button><button type="button">Cancel</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div class="top-footer">
+          <span>Todo Items: 3</span>
+          <img src="images/add_item_icon.svg" alt="Add Item" srcset="" />
+        </div>
+
+        <div class="bottom-footer">
+          <select name="project" id="project-select">
+            <option value="Default">Default</option>
+            <option value="Project_1">Project 1</option>
+            <option value="Project_2">Project 2</option>
+          </select>
+          <img src="images/settings_icon.svg" alt="Settings" srcset="" />
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

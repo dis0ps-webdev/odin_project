@@ -1,8 +1,15 @@
-import * as layout from "../css/layout.global.css";
-import * as typography from "../css/typography.global.css";
-import * as config from "../config/AppConfig";
+import * as layout from "../css/layout.global.scss";
+import * as typography from "../css/typography.global.scss";
+import * as imports from "../css/imports.global.scss";
+import * as app from "../app/App";
 
 const global_layout = layout;
 const global_typography = typography;
+const global_imports = imports;
 
-config.containerDiv.innerHTML = "<div>Hello World!</div>";
+const pubsub = new app.PubSub();
+
+const controller = new app.Controller(pubsub);
+const router = new app.PageRouter(app.containerDiv, pubsub);
+
+pubsub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
