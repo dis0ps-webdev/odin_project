@@ -36,19 +36,39 @@
       <div class="modal-content">
         <div class="modal-title">Add A Book</div>
 
-        <div class="modal-form">
-          <input placeholder="Title" name="book-title" type="text" />
-        </div>
-        <div class="modal-form">
-          <input placeholder="Author" name="book-author" type="text" />
-        </div>
-        <div class="modal-form">
-          <input placeholder="Number of Pages" name="book-pages" type="text" />
-        </div>
-        <div class="modal-form">
+        <form
+          name="form-add-book"
+          id="form-add-book"
+          class="modal-form"
+          novalidate
+        >
+          <input
+            placeholder="Title"
+            name="book-title"
+            type="text"
+            maxlength="80"
+            required
+          />
+          <div id="book-title-error" class="error-box"></div>
+          <input
+            placeholder="Author"
+            name="book-author"
+            type="text"
+            maxlength="80"
+            required
+          />
+          <div id="book-author-error" class="error-box"></div>
+          <input
+            placeholder="Number of Pages"
+            name="book-pages"
+            type="number"
+            pattern="[0-9]+"
+            required
+          />
+          <div id="book-pages-error" class="error-box"></div>
+          <button id="book-submit">Submit</button>
           <button id="book-cancel">Cancel</button>
-          <button id="book-submit" type="submit">Submit</button>
-        </div>
+        </form>
       </div>
     </div>
     <!-- The core Firebase JS SDK is always required and must be listed first -->
