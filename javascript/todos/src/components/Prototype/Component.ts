@@ -35,8 +35,12 @@ class Component {
     window.addEventListener(event, handler);
   }
 
-  protected _bindHandler(event: string, handler: (data: any) => void) {
-    this.outputElement.addEventListener(event, handler);
+  protected _bindHandler(
+    event: string,
+    handler: (data: any) => void,
+    capture: boolean = false
+  ) {
+    this.outputElement.addEventListener(event, handler, capture);
   }
 
   public render() {

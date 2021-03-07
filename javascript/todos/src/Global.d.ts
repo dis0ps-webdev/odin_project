@@ -8,3 +8,5 @@ declare module "*.scss" {
   export default classNames;
 }
 
+declare module "element-closest";
+
