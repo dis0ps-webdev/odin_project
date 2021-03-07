@@ -38,3 +38,7 @@ export enum enumEventMessages {
   "SAVE_APP_STATE",
   "LOAD_APP_STATE",
 }
+
+export const constFormErrors: { [index: string]: string } = {
+  valueMissing: "This field is required",
+};
