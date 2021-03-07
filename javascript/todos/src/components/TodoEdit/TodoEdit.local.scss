@@ -76,4 +76,33 @@
       background-color: #8d4cb5;
     }
   }
+
+  .error-box {
+    flex: 1;
+    display: none;
+    position: relative;
+    background: #b34bb3;
+    border-radius: 5px;
+    padding: 5px;
+    margin-top: 5px;
+    width: 150px;
+    font-size: 0.8em;
+    color: white;
+    font-weight: bolder;
+    text-align: center;
+
+    &:after {
+      content: "";
+      position: absolute;
+      bottom: 100%;
+      left: 5%;
+      border: solid transparent;
+      border-bottom-color: #b34bb3;
+      border-width: 10px;
+      pointer-events: none;
+    }
+  }
+  .error-show {
+    display: block;
+  }
 }
