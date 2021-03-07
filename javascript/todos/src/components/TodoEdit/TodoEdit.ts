@@ -17,6 +17,7 @@ class TodoEdit extends Component {
     this.isNewTodo = true;
 
     this._bindHandler("click", this.handleClick.bind(this));
+    this._bindHandler("blur", this.handleBlur.bind(this), true);
 
     this.refPubSub.subscribe(
       app.enumEventMessages.UPDATE_VIEWS,
@@ -29,12 +30,84 @@ class TodoEdit extends Component {
       const targetClick = e.target as HTMLElement;
       switch (targetClick.id) {
         case "save-button":
-          this.saveTodo();
+          if (this.isValidForm()) {
+            this.saveTodo();
+          }
           break;
         case "cancel-button":
           this.refPubSub.publish(app.enumEventMessages.SET_CURRENT_TODO, "");
           this.refPubSub.publish(app.enumEventMessages.CHANGE_VIEW_LIST, null);
       }
+    }
+  }
+
+  private setErrorMessage(field: HTMLInputElement) {
+    const invalidityState: ValidityState = field.validity;
+    const errorElement = this.targetContainer.querySelector(
+      `#error-${field.name}`
+    );
+
+    if (errorElement) {
+      //thanks to https://effectivetypescript.com/2020/05/26/iterate-objects/
+      let validityKey: keyof typeof invalidityState;
+      for (validityKey in invalidityState) {
+        if (invalidityState[validityKey] == true) {
+          errorElement.innerHTML = app.constFormErrors[validityKey];
+          errorElement.classList.add(styles["error-show"]);
+          break;
+        }
+      }
+    }
+  }
+
+  private clearErrorMessage(field: HTMLInputElement) {
+    const errorElement = this.targetContainer.querySelector(
+      `#error-${field.name}`
+    );
+    if (errorElement) {
+      errorElement.classList.remove(styles["error-show"]);
+    }
+  }
+
+  private isValidForm() {
+    const todoForm = <HTMLFormElement>(
+      this.targetContainer.querySelector("#todo-form")
+    );
+
+    //Get every field in the form, validate, and add error messages where appropriate
+    const validityArray = Array.from(todoForm.elements).map((element) => {
+      if (element) {
+        const inputElement = <HTMLInputElement>element;
+        if (this.checkValidity(inputElement) == false) {
+          return false;
+        }
+        return true;
+      }
+    });
+
+    //Reduce that boolean look at the form to either all true or all false
+    return validityArray.reduce(
+      (totalValidity, currentValidity) => totalValidity && currentValidity,
+      true
+    );
+  }
+
+  private checkValidity(element: HTMLInputElement) {
+    const isValid = element.checkValidity();
+
+    if (!isValid) {
+      this.setErrorMessage(element);
+      return false;
+    } else {
+      this.clearErrorMessage(element);
+      return true;
+    }
+  }
+
+  private handleBlur(e: Event) {
+    const targetElement = <HTMLInputElement>e.target;
+    if (targetElement) {
+      this.checkValidity(targetElement);
     }
   }
 
@@ -78,6 +151,15 @@ class TodoEdit extends Component {
     const targetTodoId = this.currentProject.getCurrentTodoId();
     const todoData = this.currentProject.getTodoItem(targetTodoId)?.getData();
 
+    setTimeout(() => {
+      const dueDateField = <HTMLInputElement>(
+        this.targetContainer.querySelector("#dueDate")
+      );
+      if (dueDateField) {
+        dueDateField.value = format(new Date(), "yyyy-MM-dd");
+      }
+    }, 0);
+
     //Clear current todo after loading it
 
     if (todoData) {
@@ -85,6 +167,7 @@ class TodoEdit extends Component {
       this.isNewTodo = false;
 
       //kludgey, need a better mechanism, maybe promises?
+      //further Odin project research, looks like this is a stack issues, maybe putting all pubsub messages in a settimeout would drop them in event queue
       setTimeout(() => {
         const todoForm = <HTMLFormElement>(
           this.targetContainer.querySelector("#todo-form")
@@ -131,9 +214,11 @@ class TodoEdit extends Component {
     <div class=${styles["edit-task-content"]}>
     <form id="todo-form" name="todo-form">
       <label for="title">Title</label>
-      <input type="text" name="title" id="title" maxlength="80" />
+      <input type="text" name="title" id="title" maxlength="80" required />
+      <span id="error-title" class=${styles["error-box"]}>Error</span>
       <label for="Description">Description</label>
-      <textarea id="description" name="description" rows="5" maxlength="500"></textarea>
+      <textarea id="description" name="description" rows="5" maxlength="500" required></textarea>
+      <span id="error-description" class=${styles["error-box"]}>Error</span>
       <label for="Status">Status</label>
       <select name="status" id="status">
       ${this.generateOptionsFromEnum(app.enumStatus)}
@@ -143,7 +228,8 @@ class TodoEdit extends Component {
       ${this.generateOptionsFromEnum(app.enumPriorities)}
       </select>
       <label for="due-date">Due Date</label>
-      <input disable=true type="text" name="dueDate" id="dueDate" />
+      <input disable=true type="text" name="dueDate" id="dueDate"/>
+      <span id="error-dueDate" class=${styles["error-box"]}>Required</span>
       <div class=${styles["button-box"]}>
       <button type="button" id="save-button">Save</button>
       <button type="button" id="cancel-button">Cancel</button>
