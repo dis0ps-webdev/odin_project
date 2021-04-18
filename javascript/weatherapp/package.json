@@ -1,5 +1,5 @@
 {
-  "name": "webpack-template",
+  "name": "weatherapp",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -12,6 +12,7 @@
   "keywords": [],
   "devDependencies": {
     "@babel/core": "^7.12.10",
+    "@babel/plugin-transform-runtime": "^7.13.9",
     "@babel/preset-env": "^7.12.11",
     "@babel/preset-typescript": "^7.12.7",
     "@types/mini-css-extract-plugin": "^1.2.2",
