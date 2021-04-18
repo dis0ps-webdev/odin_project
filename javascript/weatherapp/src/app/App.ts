@@ -1,4 +1,5 @@
 export * from "./config/AppConfig"
-export * from "./models/DailyWeatherData"
+export * from "./models/DailyForecastData"
+export * from "./models/WeeklyForecastData"
 export * from "./services/WeatherService"
 export * from "./services/PubSub"
