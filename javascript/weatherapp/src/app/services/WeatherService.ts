@@ -1,8 +1,9 @@
 import * as app from "../App";
-import { LocationData } from "../models/LocationData";
+import { DailyForecastData } from "../models/DailyForecastData";
 
 export class WeatherService {
   private location: app.LocationData;
+  private weatherForecast: Array<app.DailyForecastData> = new Array<app.DailyForecastData>();
   private units: string = "imperial";
 
   constructor() {}
@@ -36,7 +37,6 @@ export class WeatherService {
 
   public async getLocation(location: string): Promise<any> {
     let locationInfo = await this.callLocationAPI(location);
-
     let arrayLocation = Array<app.LocationData>();
     if (locationInfo instanceof Array) {
       locationInfo.forEach((location) => {
@@ -55,8 +55,34 @@ export class WeatherService {
     return arrayLocation;
   }
 
+  private convertDateDay(epochTime: number) {
+    let dateTime = epochTime * 1000;
+    let dateObject = new Date(dateTime);
+    return dateObject.toLocaleString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "2-digit",
+    });
+  }
+
   public async getWeather(): Promise<any> {
     let weatherInfo = await this.callWeatherAPI();
-    return weatherInfo;
+
+    weatherInfo.daily.forEach((dataElement: any) => {
+      let forecastData = new DailyForecastData();
+      let dateString = this.convertDateDay(dataElement.dt);
+      forecastData.date = dateString.split(",")[1];
+      forecastData.day = dateString.split(",")[0];
+      forecastData.day_temp = dataElement.temp.day;
+      forecastData.night_temp = dataElement.temp.night;
+      forecastData.humidity = dataElement.humidity;
+      forecastData.dew_point = dataElement.dew_point;
+      forecastData.description = dataElement.weather[0].description;
+      forecastData.icon = `http://openweathermap.org/img/wn/${dataElement.weather[0].icon}@2x.png`;
+
+      this.weatherForecast.push(forecastData);
+    });
+
+    return this.weatherForecast;
   }
 }
