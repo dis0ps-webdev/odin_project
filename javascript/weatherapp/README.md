@@ -1,16 +1,20 @@
 # Weather App 
 
-## Promises and async/await
-
-* *must* be in a function as execution needs to be paused to allow others to run
-* wrapping async functions in classes can be tricky
-* a final then() is most likely needed, and can be used like an eventlistener
+## Promises
+* a then() method is needed, and can be used like an eventlistener
 * to use promises effectively, the app must be designed with concurrency in mind
 
-## geocoding
+## async / await
+* https://medium.com/front-end-weekly/modern-javascript-and-asynchronous-programming-generators-yield-vs-async-await-550275cbe433
+* similar to python's yield, which is a generator
+  * generators in python return a lazy iterator
+  * the lazy iterator encapsulate the function and restores the stack each iteration
+  * javascript uses the same principal to allow for sequential execution while not blocking
+* always returns a promise
+* exceptions may not propagate, so they should be caught closest to the start of async code (try/catch) 
 
-* most browsers can provide lat/lon
-* getting metadata from lat/lon requires another service
+
+## geocoding * most browsers can provide lat/lon * getting metadata from lat/lon requires another service
 * openweathermap provides basic geocoding from name to lat/lon
 * capture metdata and lat lon together to enrich the weather data API return set
 
@@ -20,6 +24,7 @@
 * more robust
 * massage data into the appropriate format for the application and place in a container object
 * container objects can be used like components, providing a representation that can be more easily rendered
+* use the source json to create an interface for just the data you need, many APIs provide a lot of data that may not be needed
 
 ## improving local pubsub functionality
 
