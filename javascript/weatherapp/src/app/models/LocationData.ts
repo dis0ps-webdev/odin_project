@@ -11,5 +11,5 @@ export class LocationData implements LocationObject {
   public lon: number;
   public city: string;
   public region: string;
-  public country: string; 
+  public country: string;
 }
