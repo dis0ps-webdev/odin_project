@@ -3,8 +3,11 @@ import { DailyForecastData } from "../models/DailyForecastData";
 
 export class WeatherService {
   private location: app.LocationData;
+  private currentWeather: app.DailyForecastData;
   private weatherForecast: Array<app.DailyForecastData> = new Array<app.DailyForecastData>();
   private units: string = "imperial";
+  private timezone: string;
+  private timezone_offset: number;
 
   constructor() {}
 
@@ -27,15 +30,29 @@ export class WeatherService {
     const apiCall = `${app.weatherAPI}?units=${this.units}&exclude=minutely,hourly&lat=${lat}&lon=${lon}&appid=${app.apiKey}`;
     let apiResult = await fetch(apiCall);
     let jsonResult = await apiResult.json();
-
     return jsonResult;
   }
 
-  public setLocation(location: app.LocationData) {
-    this.location = location;
+  private async updateWeather(): Promise<any> {
+    let weatherInfo = await this.callWeatherAPI();
+
+    this.timezone = weatherInfo.timezone;
+    this.timezone_offset = weatherInfo.timezone_offset;
+
+    this.currentWeather = this.mapWeatherObject(weatherInfo.current);
+
+    weatherInfo.daily.forEach((dataElement: any) => {
+      let forecastData = this.mapWeatherObject(dataElement);
+      this.weatherForecast.push(forecastData);
+    });
   }
 
-  public async getLocation(location: string): Promise<any> {
+  public async setLocation(location: app.LocationData) {
+    this.location = location;
+    await this.updateWeather();
+  }
+
+  public async searchLocations(location: string): Promise<any> {
     let locationInfo = await this.callLocationAPI(location);
     let arrayLocation = Array<app.LocationData>();
     if (locationInfo instanceof Array) {
@@ -65,24 +82,35 @@ export class WeatherService {
     });
   }
 
-  public async getWeather(): Promise<any> {
-    let weatherInfo = await this.callWeatherAPI();
+  private mapWeatherObject(dataElement: any) {
+    let forecastData = new DailyForecastData();
+    let dateString = this.convertDateDay(dataElement.dt);
+    forecastData.date = dateString.split(",")[1];
+    forecastData.day = dateString.split(",")[0];
 
-    weatherInfo.daily.forEach((dataElement: any) => {
-      let forecastData = new DailyForecastData();
-      let dateString = this.convertDateDay(dataElement.dt);
-      forecastData.date = dateString.split(",")[1];
-      forecastData.day = dateString.split(",")[0];
+    if (typeof dataElement.temp == "number") {
+      forecastData.current_temp = dataElement.temp;
+    } else {
       forecastData.day_temp = dataElement.temp.day;
       forecastData.night_temp = dataElement.temp.night;
-      forecastData.humidity = dataElement.humidity;
-      forecastData.dew_point = dataElement.dew_point;
-      forecastData.description = dataElement.weather[0].description;
-      forecastData.icon = `http://openweathermap.org/img/wn/${dataElement.weather[0].icon}@2x.png`;
+    }
 
-      this.weatherForecast.push(forecastData);
-    });
+    forecastData.humidity = dataElement.humidity;
+    forecastData.dew_point = dataElement.dew_point;
+    forecastData.description = dataElement.weather[0].description;
+    forecastData.icon = `http://openweathermap.org/img/wn/${dataElement.weather[0].icon}@2x.png`;
+    return forecastData;
+  }
 
+  public getForecast() {
     return this.weatherForecast;
+  }
+
+  public getCurrent() {
+    return this.currentWeather;
+  }
+  
+  public getLocation() {
+    return this.location;
   }
 }
