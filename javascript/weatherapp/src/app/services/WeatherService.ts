@@ -4,8 +4,9 @@ import { DailyForecastData } from "../models/DailyForecastData";
 export class WeatherService {
   private location: app.LocationData;
   private currentWeather: app.DailyForecastData;
-  private weatherForecast: Array<app.DailyForecastData> = new Array<app.DailyForecastData>();
-  private units: string = "imperial";
+  private weatherForecast: Array<app.DailyForecastData> =
+    new Array<app.DailyForecastData>();
+  private units: string;
   private timezone: string;
   private timezone_offset: number;
 
@@ -34,39 +35,48 @@ export class WeatherService {
   }
 
   private async updateWeather(): Promise<any> {
-    let weatherInfo = await this.callWeatherAPI();
+    if (this.location !== undefined) {
+      let weatherInfo = await this.callWeatherAPI();
 
-    this.timezone = weatherInfo.timezone;
-    this.timezone_offset = weatherInfo.timezone_offset;
+      this.timezone = weatherInfo.timezone;
+      this.timezone_offset = weatherInfo.timezone_offset;
 
-    this.currentWeather = this.mapWeatherObject(weatherInfo.current);
+      this.currentWeather = this.mapWeatherObject(weatherInfo.current);
 
-    weatherInfo.daily.forEach((dataElement: any) => {
-      let forecastData = this.mapWeatherObject(dataElement);
-      this.weatherForecast.push(forecastData);
-    });
+      this.weatherForecast.length = 0;
+
+      weatherInfo.daily.forEach((dataElement: any) => {
+        let forecastData = this.mapWeatherObject(dataElement);
+        this.weatherForecast.push(forecastData);
+      });
+    }
   }
 
-  public async setLocation(location: app.LocationData) {
+  public async setLocation(
+    location: app.LocationData,
+    units: string = app.units.IMPERIAL
+  ) {
     this.location = location;
+    this.units = units;
     await this.updateWeather();
   }
 
   public async searchLocations(location: string): Promise<any> {
     let locationInfo = await this.callLocationAPI(location);
     let arrayLocation = Array<app.LocationData>();
-    if (locationInfo instanceof Array) {
-      locationInfo.forEach((location) => {
-        let objLocation = new app.LocationData();
-        objLocation.lat = location.lat;
-        objLocation.lon = location.lon;
-        objLocation.city = location.name;
-        objLocation.region = location.state;
-        objLocation.country = location.country;
-        arrayLocation.push(objLocation);
-      });
-    } else {
-      arrayLocation.push(locationInfo);
+
+    if (!Object.keys(locationInfo).includes("cod")) {
+      if (locationInfo instanceof Array) {
+        locationInfo.forEach((location) => {
+          let objLocation = new app.LocationData();
+          objLocation.lat = location.lat;
+          objLocation.lon = location.lon;
+          objLocation.city = location.name;
+          objLocation.region = location.state;
+          objLocation.country = location.country;
+          arrayLocation.push(objLocation);
+        });
+      }
     }
 
     return arrayLocation;
@@ -89,16 +99,17 @@ export class WeatherService {
     forecastData.day = dateString.split(",")[0];
 
     if (typeof dataElement.temp == "number") {
-      forecastData.current_temp = dataElement.temp;
+      forecastData.current_temp = Math.round(dataElement.temp);
     } else {
-      forecastData.day_temp = dataElement.temp.day;
-      forecastData.night_temp = dataElement.temp.night;
+      forecastData.day_temp = Math.round(dataElement.temp.day);
+      forecastData.night_temp = Math.round(dataElement.temp.night);
     }
 
-    forecastData.humidity = dataElement.humidity;
-    forecastData.dew_point = dataElement.dew_point;
+    forecastData.humidity = Math.round(dataElement.humidity);
+    forecastData.dew_point = Math.round(dataElement.dew_point);
     forecastData.description = dataElement.weather[0].description;
     forecastData.icon = `http://openweathermap.org/img/wn/${dataElement.weather[0].icon}@2x.png`;
+    forecastData.location = this.location;
     return forecastData;
   }
 
@@ -109,8 +120,11 @@ export class WeatherService {
   public getCurrent() {
     return this.currentWeather;
   }
-  
+
   public getLocation() {
     return this.location;
+  }
+  public getUnits() {
+    return this.units;
   }
 }

@@ -19,18 +19,42 @@ export class AppController {
       app.enumEventMessages.CHOOSE_LOCATION,
       this.handleChooseLocation.bind(this)
     );
+    this.pubsub.subscribe(
+      app.enumEventMessages.TOGGLE_UNITS,
+      this.handleChangeUnits.bind(this)
+    );
   }
 
-  private async handleSearchLocations(data: any) {
+  private async handleSearchLocations(data: string) {
     let arrLocations = await this.weather.searchLocations(data);
-    console.log(arrLocations);
     this.pubsub.publish(
-      app.enumEventMessages.UPDATE_SEARCH_COMPONENTS,
+      app.enumEventMessages.UPDATE_SEARCH_RESULTS,
       arrLocations
     );
   }
 
-  private handleChooseLocation(data: any) {
-    console.log(data);
+  private async handleChooseLocation(data: app.LocationData) {
+    await this.weather.setLocation(data);
+    this.pubsub.publish(
+      app.enumEventMessages.UPDATE_CURRENT_WEATHER,
+      this.weather.getCurrent()
+    );
+    this.pubsub.publish(
+      app.enumEventMessages.UPDATE_FORECAST_WEATHER,
+      this.weather.getForecast()
+    );
+  }
+
+  private async handleChangeUnits(units: string) {
+    const currentLocation = this.weather.getLocation();
+    await this.weather.setLocation(currentLocation, units);
+    this.pubsub.publish(
+      app.enumEventMessages.UPDATE_CURRENT_WEATHER,
+      this.weather.getCurrent()
+    );
+    this.pubsub.publish(
+      app.enumEventMessages.UPDATE_FORECAST_WEATHER,
+      this.weather.getForecast()
+    );
   }
 }
