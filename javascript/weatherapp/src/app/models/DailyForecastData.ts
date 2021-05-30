@@ -1,3 +1,6 @@
+import { AppController } from "../controller/AppController";
+import {LocationData} from "./LocationData";
+
 interface ForecastObject {
   date: string;
   day: string;
@@ -20,4 +23,5 @@ export class DailyForecastData implements ForecastObject {
   public dew_point: number;
   public description: string;
   public icon: string;
+  public location: LocationData;
 }
