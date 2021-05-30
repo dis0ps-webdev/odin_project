@@ -108,7 +108,7 @@ export class WeatherService {
     forecastData.humidity = Math.round(dataElement.humidity);
     forecastData.dew_point = Math.round(dataElement.dew_point);
     forecastData.description = dataElement.weather[0].description;
-    forecastData.icon = `http://openweathermap.org/img/wn/${dataElement.weather[0].icon}@2x.png`;
+    forecastData.icon = `https://openweathermap.org/img/wn/${dataElement.weather[0].icon}@2x.png`;
     forecastData.location = this.location;
     return forecastData;
   }
