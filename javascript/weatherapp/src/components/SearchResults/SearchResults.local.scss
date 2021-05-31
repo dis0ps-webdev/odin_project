@@ -1,0 +1,24 @@
+.visible {
+  display: flex !important;
+}
+
+.searchresults {
+  display: none;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+
+  h1 {
+    font-size: 1.2em;
+  }
+
+  li {
+    list-style-type: none;
+    border: 1px solid black;
+    width: 300px;
+    margin: 5px;
+    padding: 10px;
+  }
+}
