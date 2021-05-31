@@ -17,3 +17,4 @@ Assignments and projects for each course of the full stack development track tar
 - [Tic Tac Toe](https://dis0ps.github.io/odin_project/javascript/tic-tac-toe/index.html)
 - [Restaurant](https://dis0ps-webdev.github.io/caskngrill)
 - [Can-Do Kanban(Todos)](https://dis0ps-webdev.github.io/can-do-kanban)
+- [Weather App](https://dis0ps-webdev.github.io/weatherapp)
