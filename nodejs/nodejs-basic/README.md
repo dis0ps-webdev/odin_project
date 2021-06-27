@@ -2,7 +2,7 @@
 
 Using the first NodeJS project, I took the opportunity to explore using webpack to build backend services.  The result is a template that will continue to evolve as additional concepts are introduced during the NodeJS Odin Project track.  
 
-Source: https://github.com/dis0ps-webdev/odin_project/tree/nodejs-basic
+Source: https://github.com/dis0ps-webdev/odin_project/tree/master/nodejs/nodejs-basic
 
 Template: https://github.com/dis0ps-webdev/backend-webpack-template
 
